@@ -24,3 +24,5 @@ kostaD -- 2022-12-02 09:00
  Uploaded develog.
 ==============================================================
 
+SamL -- 2022-12-05 19:29 
+Added repo structure and design doc
