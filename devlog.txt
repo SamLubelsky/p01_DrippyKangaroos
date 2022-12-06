@@ -26,3 +26,6 @@ kostaD -- 2022-12-02 09:00
 
 SamL -- 2022-12-05 19:29 
 Added repo structure and design doc
+
+SamL -- 2022-12-05 9:35
+Updated Design Doc to include our MVP and Stretch goals
