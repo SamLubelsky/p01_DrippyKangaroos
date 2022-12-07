@@ -2,7 +2,7 @@ import sqlite3
 
 
 users = ("(username TEXT, password TEXT)")
-article = 
+article = ("(articleId INTEGER PRIMARY KEY, url TEXT, summary TEXT)")
 def data_query(table, info = None):
     db = sqlite3.connect("database.db")
     c = db.cursor()

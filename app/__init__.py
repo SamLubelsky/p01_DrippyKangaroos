@@ -9,6 +9,7 @@ app = Flask(__name__)
 app.secret_key = os.urandom(32)
 @app.route('/')
 def index():
+    return render_template("placeholder.html")
     if 'username' in session:
         return redirect("/landing")
     return render_template('login.html') 
@@ -43,3 +44,7 @@ def create_account():
 def logout():
     session.pop('username', None)
     return redirect(url_for('index'))
+
+if __name__ == "__main__":
+    app.debug = True
+    app.run()
