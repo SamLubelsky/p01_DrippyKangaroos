@@ -6,12 +6,20 @@ api_key = ""
 with open("key_newsapi.txt", 'r') as k:
     api_key = k.read().strip() 
 
-def request(query):
-    url = f"{endpoint}q={query}&apiKey={api_key}}"
+def request(title):
+    url = f"{endpoint}q={title}&apiKey={api_key}"
     response = urlopen(url)
     data_json = json.loads(response.read())
-    return data_json
+    return data_json["articles"]
+
+
 
 if __name__ == "__main__":
-    print(request("bitcoin"))
+    articles = request("bitcoin")
+    for article in articles:
+        print(article["title"])
+        print(article["url"])
+        #print(article["summary"])
+    #print(articles)
+
 
