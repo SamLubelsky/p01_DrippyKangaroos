@@ -15,6 +15,7 @@ def index():
 
 @app.route('/login', methods = ['GET','POST'])
 def login():
+    print(request.form)
     username = request.form.get('username')
     password = request.form.get('password')
     if db_builder.verify(username,password):
@@ -32,10 +33,12 @@ def create_account():
     if request.method == 'POST':
         userIn = request.form.get('username')
         passIn = request.form.get('password') 
-        for account in accounts:
-            if account[0]==userIn:
-                return f"account with username {userIn} already exists"
-        db_builder.add_account(userIn,passIn)
+        passConfirm = request.form.get('password2')
+        if passIn != passConfirm:
+            return render_template("create_account.html", error_msg="passwords don't match")
+        if db_builder.add_account(userIn, passIn) == -1:
+            return render_template("create_account.html",
+            error_msg= f"account with username {userIn} already exists")
         return render_template("sign_up_success.html")
     return redirect(url_for('index'))
     

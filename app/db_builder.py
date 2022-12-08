@@ -31,7 +31,8 @@ def get_table_list(name):
 def add_account(username, password):
     if not(used(username,"User")):
         data_query("INSERT INTO User VALUES (?, ?)", (username, password))
-    return -1
+    else:
+        return -1
 
 
 def verify(username, password):
