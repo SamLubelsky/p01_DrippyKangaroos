@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title> TEMPORARY LOGIN PAGE</title>
+  </head>
+
+  <body>
+    <h1>
+     MultiSource news by Drippy Kangaroos
+    </h1>
+    <h2>
+       Pray thee enter thy name and thy word of pass 
+    </h2>
+   <br>
+
+   <form action="/login" method = "POST">
+       <input type="text" name="username">
+       <input type = "password" name = "password">
+       <input type="submit" value="Log In With Existing Account">
+    </form>  
+
+    <h2> 
+      If you do not have an account, please click below to create one.
+    </h2>
+    <br>
+
+    <!--
+    <form action="/create_account" method= "POST">
+        <input type="text" name="username">
+        <input type = "text" name = "password">
+         <input type="submit" value="Create Account" />
+     </form>
+    -->
+    
+    <form action="/login" method = "POST">
+            <input type="submit" name="submit_button" value="Create New Account" />
+    </form>
+  </body>
+
+</html>

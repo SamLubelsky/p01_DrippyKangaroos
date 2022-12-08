@@ -9,7 +9,6 @@ app = Flask(__name__)
 app.secret_key = os.urandom(32)
 @app.route('/')
 def index():
-    return render_template("placeholder.html")
     if 'username' in session:
         return redirect("/landing")
     return render_template('login.html') 
@@ -37,7 +36,7 @@ def create_account():
             if account[0]==userIn:
                 return f"account with username {userIn} already exists"
         db_builder.add_account(userIn,passIn)
-        return render_template("signed_in.html")
+        return render_template("sign_up_success.html")
     return redirect(url_for('index'))
     
 @app.route('/logout')
