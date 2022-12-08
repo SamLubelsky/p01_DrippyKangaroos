@@ -45,6 +45,20 @@ def logout():
     session.pop('username', None)
     return redirect(url_for('index'))
 
+@app.route("/landing")
+def home():
+    if(verify_session()):
+        articles = get_articles()
+        return render_template("home.html", articles = articles) 
+    else:
+        return render_template("error.html", msg="session could not be verifited")
+        
+def verify_session():
+    if 'username' in session and 'password' in session:
+        if db_builder.verify(session['username'], session['password']):
+            return True
+    return False
+
 if __name__ == "__main__":
     app.debug = True
     app.run()
