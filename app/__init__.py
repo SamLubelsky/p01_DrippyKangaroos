@@ -4,7 +4,7 @@ from flask import session, redirect, url_for, make_response
 import os
 import requests
 import db_builder
-
+import newsapi
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
 @app.route('/')
@@ -50,7 +50,9 @@ def logout():
 @app.route("/landing")
 def home():
     if(verify_session()):
-        articles = get_articles()
+        article_info = newsapi.request_articles("bitcoin", n = 3)
+        return article_info
+
         return render_template("home.html", articles = articles) 
     else:
         return render_template("error.html", msg="session could not be verifited")

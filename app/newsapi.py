@@ -3,7 +3,7 @@ import json
 
 endpoint = "https://newsapi.org/v2/everything?"
 api_key = ""
-with open("key_newsapi.txt", 'r') as k:
+with open("keys/key_newsapi.txt", 'r') as k:
     api_key = k.read().strip() 
 
 def request_articles(query, n=1):
