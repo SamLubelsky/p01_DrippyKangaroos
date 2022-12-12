@@ -51,7 +51,6 @@ def logout():
 def home():
     if(verify_session()):
         article_info = newsapi.request_articles("bitcoin", n = 3)
-        return article_info
 
         return render_template("home.html", articles = articles) 
     else:
