@@ -69,6 +69,11 @@ danielY -- 2022-12-05 9:30
 Added top headlines
 ==============================================================
 
+ansonW -- 2022-12-10 8:58
+--------------------------------------------------------------
+Created tables for articles, function for storing
+==============================================================
+
 kostaD -- 2022-12-12 22:23 
 --------------------------------------------------------------
 HTML basic pages, routing between them, nice ish UX, Bootstrap integration, and Bootstrap card templates for article previews.
@@ -77,4 +82,9 @@ HTML basic pages, routing between them, nice ish UX, Bootstrap integration, and 
 samL -- 2022-12-12 8:58
 --------------------------------------------------------------
 Added weather api support, some minor changes.
+==============================================================
+
+ansonW -- 2022-12-12 22:34
+--------------------------------------------------------------
+Fixed storing to go with new newsapi code, function for getting articles by category
 ==============================================================
