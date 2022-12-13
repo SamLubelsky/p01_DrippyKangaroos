@@ -2,7 +2,7 @@ import sqlite3
 import newsapi
 
 users = ("(username TEXT, password TEXT)")
-article = ("(articleId INTEGER PRIMARY KEY, url TEXT, summary TEXT, genre TEXT)")
+article = ("(title TEXT, url TEXT, summary TEXT, genre TEXT)")
 def data_query(table, info = None):
     db = sqlite3.connect("database.db")
     c = db.cursor()
@@ -52,14 +52,24 @@ def clear_table(table):
     data_query(f"DELETE FROM {table}")
 def reset_articles():
     clear_table("Article")
-
+def add_article(title, url, summary, genre):
+    data_query("INSERT INTO Article VALUES (?, ?, ?, ?)", (title, url, summary, genre))
 def add_from_genre(genre):
-    results = newsapi.request_top_headlines(genre)
-    print(results)
-def get_genre():
-    pass
+    articles = newsapi.request_top_headlines(genre)
+    for article in articles:
+        title = article["title"]
+        summary = article["description"]
+        url = article["url"]
+        add_article(title, url, summary, genre)
+def add_all_genres():
+    genres = ["Business", "Entertainment", "General", "Health", "Science", "Sports", "Technology"]
+    for genre in genres: 
+        add_from_genre(genre)
+def get_from_genre(genre):
+    resp = data_query("SELECT * FROM Article WHERE genre=?",(genre))
+    print(resp)
+
 if __name__ == "__main__":
-    Articles = ["Business", "Entertainment", "General", "Health", "Science", "Sports", "Technology"]
     print(add_from_genre("Business"))
 
 
