@@ -10,7 +10,7 @@ app.secret_key = os.urandom(32)
 @app.route('/')
 def index():
     if 'username' in session:
-        return redirect("/landing")
+        return redirect("/home")
     return render_template('login.html') 
 
 @app.route('/login', methods = ['GET','POST'])
@@ -21,7 +21,7 @@ def login():
     if db_builder.verify(username,password):
         session['username'] = username
         session['password'] = password
-        return redirect("/landing")
+        return redirect("/home")
     if request.form.get('submit_button') is not None:
         return render_template("create_account.html")
     response = make_response(render_template('error.html',msg = "username or password is not correct"))
@@ -47,12 +47,48 @@ def logout():
     session.pop('username', None)
     return redirect(url_for('index'))
 
-@app.route("/landing")
+@app.route("/home")
 def home():
     if(verify_session()):
         article_info = newsapi.request_articles("bitcoin", n = 3)
+        #return article_info
 
-        return render_template("home.html", articles = articles) 
+        return render_template("home.html")#, articles = articles) 
+    else:
+        return render_template("error.html", msg="session could not be verifited")
+
+@app.route("/explore")
+def explore():
+    if(verify_session()):
+        return render_template("explore.html")#, articles = articles) 
+    else:
+        return render_template("error.html", msg="session could not be verifited")
+
+@app.route("/weather")
+def weather():
+    if(verify_session()):
+        return render_template("weather.html")#, articles = articles) 
+    else:
+        return render_template("error.html", msg="session could not be verifited")
+
+@app.route("/news")
+def news():
+    if(verify_session()):
+        return render_template("news.html")#, articles = articles) 
+    else:
+        return render_template("error.html", msg="session could not be verifited")
+
+@app.route("/about")
+def about():
+    if(verify_session()):
+        return render_template("about.html")#, articles = articles) 
+    else:
+        return render_template("error.html", msg="session could not be verifited")
+
+@app.route("/profile")
+def profile():
+    if(verify_session()):
+        return render_template("profile.html", username=session['username'])#, articles = articles) 
     else:
         return render_template("error.html", msg="session could not be verifited")
         
@@ -65,3 +101,4 @@ def verify_session():
 if __name__ == "__main__":
     app.debug = True
     app.run()
+
