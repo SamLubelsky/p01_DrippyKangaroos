@@ -55,11 +55,17 @@ def reset_articles():
 def add_article(title, url, summary, genre):
     data_query("INSERT INTO Article VALUES (?, ?, ?, ?)", (title, url, summary, genre))
 def add_from_genre(genre):
+    print("starting")
     articles = newsapi.request_top_headlines(genre)
+    print("done grabbing api")
     for article in articles:
         title = article["title"]
         summary = article["description"]
         url = article["url"]
+        #print(title, type(title))
+        #print(url, type(url))
+        #print(summary, type(summary))
+        #print(genre, type(genre))
         add_article(title, url, summary, genre)
 def add_all_genres():
     genres = ["Business", "Entertainment", "General", "Health", "Science", "Sports", "Technology"]
@@ -70,6 +76,5 @@ def get_from_genre(genre):
     print(resp)
 
 if __name__ == "__main__":
-    print(add_from_genre("Business"))
-
+    pass
 
