@@ -3,13 +3,15 @@ import newsapi
 
 users = ("(username TEXT, password TEXT)")
 article = ("(title TEXT, url TEXT, summary TEXT, genre TEXT)")
-def data_query(table, info = None):
+def data_query(table, info = None, fetchall=False):
     db = sqlite3.connect("database.db")
     c = db.cursor()
     if info is None:
         output = c.execute(table)
     else:
         output = c.execute(table, info)
+    if fetchall:
+        output = output.fetchall()
     db.commit()
     db.close()
     return output
@@ -55,21 +57,37 @@ def reset_articles():
 def add_article(title, url, summary, genre):
     data_query("INSERT INTO Article VALUES (?, ?, ?, ?)", (title, url, summary, genre))
 def add_from_genre(genre):
+    print("starting")
     articles = newsapi.request_top_headlines(genre)
+    print("done grabbing api")
     for article in articles:
         title = article["title"]
         summary = article["description"]
         url = article["url"]
+        #print(title, type(title))
+        #print(url, type(url))
+        #print(summary, type(summary))
+        #print(genre, type(genre))
         add_article(title, url, summary, genre)
 def add_all_genres():
     genres = ["Business", "Entertainment", "General", "Health", "Science", "Sports", "Technology"]
     for genre in genres: 
         add_from_genre(genre)
 def get_from_genre(genre):
-    resp = data_query("SELECT * FROM Article WHERE genre=?",(genre))
-    print(resp)
+    resp = data_query(f'''
+    SELECT
+    title,
+    url,
+    summary,
+    genre
+    FROM 
+    Article 
+    WHERE 
+    genre="{genre}"''', fetchall=True)
+    return resp
 
 if __name__ == "__main__":
-    print(add_from_genre("Business"))
-
+    #reset_articles()
+    #add_all_genres()
+    print(get_from_genre("Science"))
 

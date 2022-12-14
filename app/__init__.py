@@ -50,10 +50,8 @@ def logout():
 @app.route("/home")
 def home():
     if(verify_session()):
-        article_info = newsapi.request_articles("bitcoin", n = 3)
-        #return article_info
-
-        return render_template("home.html")#, articles = articles) 
+        articles = db_builder.get_from_genre("General")
+        return render_template("home.html", articles = articles)#, articles = articles) 
     else:
         return render_template("error.html", msg="session could not be verifited")
 
@@ -64,17 +62,10 @@ def explore():
     else:
         return render_template("error.html", msg="session could not be verifited")
 
-@app.route("/weather")
-def weather():
+@app.route("/topic")
+def topic():
     if(verify_session()):
-        return render_template("weather.html")#, articles = articles) 
-    else:
-        return render_template("error.html", msg="session could not be verifited")
-
-@app.route("/news")
-def news():
-    if(verify_session()):
-        return render_template("news.html")#, articles = articles) 
+        return render_template("topic.html")#, articles = articles) 
     else:
         return render_template("error.html", msg="session could not be verifited")
 
