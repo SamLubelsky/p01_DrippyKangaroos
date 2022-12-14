@@ -103,3 +103,8 @@ kostaD -- 2022-12-13 22:44
 --------------------------------------------------------------
 Fixed up pages, made the dropdown in the navbar for specific topics work, and working on sending the specific topic we chose back to the python flask app as a variable so we know which information to fill the "topic.html" template with"
 ==============================================================
+
+samD -- 2022-12-14 10:10
+--------------------------------------------------------------
+Worked a lot on the frontend and backend.  Articles now display properly and are stored properly in the backend.
+==============================================================
