@@ -26,14 +26,16 @@
                         </li>
                         <li class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Topics</a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="/topic">General</a>
-                                <a class="dropdown-item" href="/topic">Business</a>
-                                <a class="dropdown-item" href="/topic">Politics</a>
-                                <a class="dropdown-item" href="/topic">Technology</a>
-                                <!-- <div class="dropdown-divider"></div>
-                                <a href="#" class="dropdown-item">Trash</a> -->
-                            </div>
+                            <form action="/topic">
+                                <div class="dropdown-menu">
+                                    <input name="topic" value="General" type="submit" class="dropdown-item" id="general">
+                                    <input name="topic" value="Politics" type="submit" class="dropdown-item" id="politics">
+                                    <input name="topic" value="Business" type="submit" class="dropdown-item" id="business">
+                                    <input name="topic" value="Technology" type="submit" class="dropdown-item" id="technology">
+                                    <!-- <div class="dropdown-divider"></div>
+                                    <a href="#" class="dropdown-item">Trash</a> -->
+                                </div>
+                            </form>
                         </li>
                     </ul>
                 </div>
@@ -55,7 +57,7 @@
                 </div>
             </div>
         </nav>
-        
+
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
     </body>
