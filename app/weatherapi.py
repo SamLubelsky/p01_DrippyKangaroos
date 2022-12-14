@@ -2,7 +2,7 @@ import json
 import requests
 with open('keys/key_openweather.txt', 'r') as f:
     key = f.read().strip()
-print(key)
+#print(key)
 nylat = "40.717831142775566" 
 nylon = "-74.0137791697529"
 endpoint = "https://api.openweathermap.org/data/2.5/weather"
