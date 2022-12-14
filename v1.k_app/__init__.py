@@ -68,6 +68,7 @@ def explore():
 
 @app.route("/topic")
 def topic():
+    print(request.form)
     print(request.form.get('general'))
     print(request.form.get('business'))
     print(request.form.get('politics'))
