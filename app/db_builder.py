@@ -1,8 +1,8 @@
 import sqlite3
 import newsapi
-
+from datetime import date
 users = ("(username TEXT, password TEXT)")
-article = ("(title TEXT, url TEXT, summary TEXT, genre TEXT)")
+article = ("(title TEXT, url TEXT, summary TEXT, genre TEXT, date TEXT)")
 def data_query(table, info = None, fetchall=False):
     db = sqlite3.connect("database.db")
     c = db.cursor()
@@ -54,8 +54,20 @@ def clear_table(table):
     data_query(f"DELETE FROM {table}")
 def reset_articles():
     clear_table("Article")
+    
+todate = ""
+def check_date():
+    todate = date.today()
+    home_articles = get_table_list("Article")
+    for article in home_articles:
+        if home_articles[1] == date.today():
+            return True
+    todate = date.today()
+    return False
+
 def add_article(title, url, summary, genre):
-    data_query("INSERT INTO Article VALUES (?, ?, ?, ?)", (title, url, summary, genre))
+    if (check_date()):
+        data_query("INSERT INTO Article VALUES (?, ?, ?, ?, ?)", (title, url, summary, genre, todate))
 def add_from_genre(genre):
     print("starting")
     articles = newsapi.request_top_headlines(genre)
