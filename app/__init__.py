@@ -64,8 +64,10 @@ def explore():
 
 @app.route("/topic")
 def topic():
+    genre = request.args.get("topic")
+    articles = db_builder.get_from_genre(genre)
     if(verify_session()):
-        return render_template("topic.html")#, articles = articles) 
+        return render_template("topic.html", articles=articles)#, articles = articles) 
     else:
         return render_template("error.html", msg="session could not be verifited")
 

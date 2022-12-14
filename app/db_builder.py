@@ -2,7 +2,7 @@ import sqlite3
 import newsapi
 from datetime import date
 users = ("(username TEXT, password TEXT)")
-article = ("(title TEXT, url TEXT, summary TEXT, genre TEXT, date TEXT)")
+article = ("(title TEXT, url TEXT, imageUrl TEXT, summary TEXT, genre TEXT)")
 def data_query(table, info = None, fetchall=False):
     db = sqlite3.connect("database.db")
     c = db.cursor()
@@ -65,9 +65,8 @@ def check_date():
     todate = date.today()
     return False
 
-def add_article(title, url, summary, genre):
-    if (check_date()):
-        data_query("INSERT INTO Article VALUES (?, ?, ?, ?, ?)", (title, url, summary, genre, todate))
+def add_article(title, imageUrl, url, summary, genre):
+    data_query("INSERT INTO Article VALUES (?, ?, ?, ?, ?)", (title, url, imageUrl, summary, genre))
 def add_from_genre(genre):
     print("starting")
     articles = newsapi.request_top_headlines(genre)
@@ -75,12 +74,13 @@ def add_from_genre(genre):
     for article in articles:
         title = article["title"]
         summary = article["description"]
-        url = article["url"]
+        url = article["urlToImage"]
+        imageUrl = article["url"]
         #print(title, type(title))
         #print(url, type(url))
         #print(summary, type(summary))
         #print(genre, type(genre))
-        add_article(title, url, summary, genre)
+        add_article(title, url, imageUrl, summary, genre)
 def add_all_genres():
     genres = ["Business", "Entertainment", "General", "Health", "Science", "Sports", "Technology"]
     for genre in genres: 
@@ -90,6 +90,7 @@ def get_from_genre(genre):
     SELECT
     title,
     url,
+    imageUrl,
     summary,
     genre
     FROM 
@@ -100,6 +101,6 @@ def get_from_genre(genre):
 
 if __name__ == "__main__":
     #reset_articles()
-    #add_all_genres()
-    print(get_from_genre("Science"))
+    add_all_genres()
+    #print(get_from_genre("Science"))
 
