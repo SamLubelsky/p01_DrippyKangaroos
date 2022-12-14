@@ -88,3 +88,8 @@ ansonW -- 2022-12-12 22:34
 --------------------------------------------------------------
 Fixed storing to go with new newsapi code, function for getting articles by category
 ==============================================================
+
+kostaD -- 2022-12-13 22:44
+--------------------------------------------------------------
+Fixed up pages, made the dropdown in the navbar for specific topics work, and working on sending the specific topic we chose back to the python flask app as a variable so we know which information to fill the "topic.html" template with"
+==============================================================

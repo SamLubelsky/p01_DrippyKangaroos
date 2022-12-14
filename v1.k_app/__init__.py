@@ -5,6 +5,7 @@ import os
 import requests
 import db_builder
 import newsapi
+
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
 @app.route('/')
@@ -12,20 +13,6 @@ def index():
     if 'username' in session:
         return redirect("/home")
     return render_template('login.html') 
-
-@app.route('/login', methods = ['GET','POST'])
-def login():
-    print(request.form)
-    username = request.form.get('username')
-    password = request.form.get('password')
-    if db_builder.verify(username,password):
-        session['username'] = username
-        session['password'] = password
-        return redirect("/home")
-    if request.form.get('submit_button') is not None:
-        return render_template("create_account.html")
-    response = make_response(render_template('error.html',msg = "username or password is not correct"))
-    return response
 
 @app.route('/create_account', methods=['GET', 'POST'])
 def create_account():
@@ -42,6 +29,20 @@ def create_account():
         return render_template("sign_up_success.html")
     return redirect(url_for('index'))
     
+@app.route('/login', methods = ['GET','POST'])
+def login():
+    print(request.form)
+    username = request.form.get('username')
+    password = request.form.get('password')
+    if db_builder.verify(username,password):
+        session['username'] = username
+        session['password'] = password
+        return redirect("/home")
+    if request.form.get('submit_button') is not None:
+        return render_template("create_account.html")
+    response = make_response(render_template('error.html',msg = "username or password is not correct"))
+    return response
+
 @app.route('/logout')
 def logout():
     session.pop('username', None)
@@ -49,6 +50,7 @@ def logout():
 
 @app.route("/home")
 def home():
+    print(request.form)
     if(verify_session()):
         article_info = newsapi.request_articles("bitcoin", n = 3)
         #return article_info
@@ -64,17 +66,14 @@ def explore():
     else:
         return render_template("error.html", msg="session could not be verifited")
 
-@app.route("/weather")
-def weather():
+@app.route("/topic")
+def topic():
+    print(request.form.get('general'))
+    print(request.form.get('business'))
+    print(request.form.get('politics'))
+    print(request.form.get('technology'))
     if(verify_session()):
-        return render_template("weather.html")#, articles = articles) 
-    else:
-        return render_template("error.html", msg="session could not be verifited")
-
-@app.route("/news")
-def news():
-    if(verify_session()):
-        return render_template("news.html")#, articles = articles) 
+        return render_template("topic.html")#, articles = articles) 
     else:
         return render_template("error.html", msg="session could not be verifited")
 
