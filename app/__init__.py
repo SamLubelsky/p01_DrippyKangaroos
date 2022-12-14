@@ -7,6 +7,7 @@ import db_builder
 import newsapi
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
+
 @app.route('/')
 def index():
     if 'username' in session:
