@@ -48,34 +48,16 @@
         </nav>
     </head>
     <body>
+        {% for article in articles %}
         <div class="card" style="width: 18rem; margin: 1rem;">
             <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="card-link">Card link</a>
+                <h5 class="card-title">{{article[0]}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{article[3]}}</h6>
+                <p class="card-text">{{article[2]}}</p>
+                <a href="#" class="card-link">{{article[1]}}</a>
                 <a href="#" class="card-link">Another link</a>
             </div>
         </div>
-
-        <div class="card" style="width: 18rem; margin: 1rem;">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
-            </div>
-        </div>
-
-        <div class="card" style="width: 18rem; margin: 1rem;">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
-            </div>
-        </div>
+        {% endfor %}
     </body>
 </html>
