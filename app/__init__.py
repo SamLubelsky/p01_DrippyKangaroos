@@ -51,10 +51,8 @@ def logout():
 @app.route("/home")
 def home():
     if(verify_session()):
-        article_info = newsapi.request_articles("bitcoin", n = 3)
-        #return article_info
-
-        return render_template("home.html")#, articles = articles) 
+        articles = db_builder.get_from_genre("General")
+        return render_template("home.html", articles = articles)#, articles = articles) 
     else:
         return render_template("error.html", msg="session could not be verifited")
 
