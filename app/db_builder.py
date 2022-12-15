@@ -2,7 +2,7 @@ import sqlite3
 import newsapi
 from datetime import date
 users = ("(username TEXT, password TEXT)")
-article = ("(title TEXT, url TEXT, imageUrl TEXT, summary TEXT, genre TEXT)")
+article = ("(title TEXT, url TEXT, imageUrl TEXT, summary TEXT, genre TEXT, source TEXT)")
 def data_query(table, info = None, fetchall=False):
     db = sqlite3.connect("database.db")
     c = db.cursor()
@@ -57,37 +57,43 @@ def clear_table(table):
 def reset_articles():
     clear_table("Article")
     
-todate = ""
-def check_date():
-    todate = date.today()
-    home_articles = get_table_list("Article")
-    for article in home_articles:
-        if home_articles[1] == date.today():
-            return True
-    todate = date.today()
-    return False
-
-def add_article(title, imageUrl, url, summary, genre):
-    data_query("INSERT INTO Article VALUES (?, ?, ?, ?, ?)", (title, url, imageUrl, summary, genre))
+def new_day(cur_date):
+    with open('update_date.txt', 'r') as f:
+        old_date = f.read().strip()
+    if cur_date != old_date:
+        return True
+    else:
+        return False
+def update_date(new_date):
+    reset_articles()
+    add_all_genres()
+    with open('update_date.txt', 'w') as f:
+        f.write(new_date)
+def add_article(title, imageUrl, url, summary, genre, source):
+    data_query("INSERT INTO Article VALUES (?, ?, ?, ?, ?, ?)", (title, url, imageUrl, summary, genre, source))
 def add_from_genre(genre):
-    print("starting")
+    #print("starting")
     articles = newsapi.request_top_headlines(genre)
-    print("done grabbing api")
+    #print("done grabbing api")
     for article in articles:
         title = article["title"]
         summary = article["description"]
         url = article["urlToImage"]
         imageUrl = article["url"]
+        source = article["source"]["name"]
         #print(title, type(title))
         #print(url, type(url))
         #print(summary, type(summary))
         #print(genre, type(genre))
-        add_article(title, url, imageUrl, summary, genre)
+        add_article(title, url, imageUrl, summary, genre, source)
 def add_all_genres():
+    print("Its a new day! I'm grabbing the newest headlines for today")
     genres = ["Business", "Entertainment", "General", "Health", "Science", "Sports", "Technology"]
-    for genre in genres: 
+    for i, genre in enumerate(genres): 
+        print(f"{((i / len(genres)) * 100):.2f}% done")
         add_from_genre(genre)
 
+    print("Done.")
 def get_from_genre(genre):
     resp = data_query(f'''
     SELECT
@@ -95,7 +101,8 @@ def get_from_genre(genre):
     url,
     imageUrl,
     summary,
-    genre
+    genre,
+    source
     FROM 
     Article 
     WHERE 
@@ -105,7 +112,7 @@ def get_from_genre(genre):
 add_account("soft", "dev")
 
 if __name__ == "__main__":
-    #reset_articles()
+    reset_articles()
     add_all_genres()
     #print(get_from_genre("Science"))
 
