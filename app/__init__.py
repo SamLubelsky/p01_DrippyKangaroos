@@ -5,8 +5,12 @@ import os
 import requests
 import db_builder
 import newsapi
+from datetime import date
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
+cur_date = str(date.today())
+if db_builder.new_day(cur_date):
+    db_builder.update_date(cur_date)
 @app.route('/')
 def index():
     if 'username' in session:
