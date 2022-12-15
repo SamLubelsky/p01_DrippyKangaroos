@@ -4,7 +4,7 @@ from flask import session, redirect, url_for, make_response
 import os
 import requests
 import db_builder
-import newsapi
+import weatherapi
 from datetime import date
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
@@ -43,7 +43,7 @@ def create_account():
         passIn = request.form.get('password') 
         passConfirm = request.form.get('password2')
         if passIn != passConfirm:
-            return render_template("create_account.html", error_msg="passwords don't match")
+            return render_template("create_account.html", error_msg="Passwords don't match")
         if userIn == None:
             return render_template("create_account.html")
         if db_builder.add_account(userIn, passIn) == -1:
@@ -61,8 +61,9 @@ def logout():
 @app.route("/home", methods=['GET', 'POST'])
 def home():
     if(verify_session()):
+        weather_data = weatherapi.get_weather_data()
         articles = db_builder.get_from_genre("General")
-        return render_template("home.html", articles=articles, genres=genres)
+        return render_template("home.html", articles=articles, genres=genres, weather = weather_data)
     else:
         return render_template("error.html", msg="session could not be verifited")
 
@@ -75,10 +76,11 @@ def explore():
 
 @app.route("/topic")
 def topic():
-    topic = request.args.get("topic")
-    articles = db_builder.get_from_genre(topic)
     if(verify_session()):
-        return render_template("topic.html", articles=articles, topic=topic, genres=genres)
+        weather_data = weatherapi.get_weather_data()
+        topic = request.args.get("topic")
+        articles = db_builder.get_from_genre(topic)
+        return render_template("topic.html", articles=articles, topic=topic, genres=genres, weather = weather_data)
     else:
         return render_template("error.html", msg="session could not be verifited")
 
