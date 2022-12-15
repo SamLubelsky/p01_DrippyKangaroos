@@ -108,3 +108,8 @@ samD -- 2022-12-14 10:10
 --------------------------------------------------------------
 Worked a lot on the frontend and backend.  Articles now display properly and are stored properly in the backend.
 ==============================================================
+
+samD -- 2022-12-15 15:14
+--------------------------------------------------------------
+Pretty much did a little bit of everything, a lot of tightening up things and fixing some bugs/deficiencies in the codebase.  Did some work on the frontend and both making things look nicer and able to use more data from the backend, worked on weatherapi, and changed some of the flask routing and databse storage
+==============================================================
