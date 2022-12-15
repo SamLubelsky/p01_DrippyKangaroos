@@ -72,9 +72,9 @@ def update_date(new_date):
 def add_article(title, imageUrl, url, summary, genre, source):
     data_query("INSERT INTO Article VALUES (?, ?, ?, ?, ?, ?)", (title, url, imageUrl, summary, genre, source))
 def add_from_genre(genre):
-    print("starting")
+    #print("starting")
     articles = newsapi.request_top_headlines(genre)
-    print("done grabbing api")
+    #print("done grabbing api")
     for article in articles:
         title = article["title"]
         summary = article["description"]
@@ -87,9 +87,12 @@ def add_from_genre(genre):
         #print(genre, type(genre))
         add_article(title, url, imageUrl, summary, genre, source)
 def add_all_genres():
+    print("Its a new day! I'm grabbing the newest headlines for today")
     genres = ["Business", "Entertainment", "General", "Health", "Science", "Sports", "Technology"]
-    for genre in genres: 
+    for i, genre in enumerate(genres): 
+        print(f"{((i / len(genres)) * 100):.2f}% done")
         add_from_genre(genre)
+    print("Done.")
 def get_from_genre(genre):
     resp = data_query(f'''
     SELECT
