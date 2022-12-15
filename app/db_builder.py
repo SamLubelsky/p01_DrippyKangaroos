@@ -87,6 +87,7 @@ def add_all_genres():
     genres = ["Business", "Entertainment", "General", "Health", "Science", "Sports", "Technology"]
     for genre in genres: 
         add_from_genre(genre)
+
 def get_from_genre(genre):
     resp = data_query(f'''
     SELECT

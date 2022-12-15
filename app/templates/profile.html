@@ -27,12 +27,9 @@
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Topics</a>
                             <form action="/topic">
                                 <div class="dropdown-menu">
-                                    <input name="topic" value="General" type="submit" class="dropdown-item" id="general">
-                                    <input name="topic" value="Politics" type="submit" class="dropdown-item" id="politics">
-                                    <input name="topic" value="Business" type="submit" class="dropdown-item" id="business">
-                                    <input name="topic" value="Technology" type="submit" class="dropdown-item" id="technology">
-                                    <!-- <div class="dropdown-divider"></div>
-                                    <a href="#" class="dropdown-item">Trash</a> -->
+                                    {% for genre in genres%}
+                                    <input name="topic" value="{{genre}}" type="submit" class="dropdown-item" id="{{genre.lower()}}">
+                                    {% endfor %}
                                 </div>
                             </form>
                         </li>
