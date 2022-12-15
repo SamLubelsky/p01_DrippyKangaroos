@@ -29,6 +29,11 @@ ansonW -- 2022-12-05 9:29
 Added apis & site map
 ==============================================================
 
+danielY -- 2022-12-05 9:30 
+--------------------------------------------------------------
+Started work on newsapi
+==============================================================
+
 samL -- 2022-12-05 19:29 
 --------------------------------------------------------------
 Added repo structure and design doc
@@ -84,6 +89,11 @@ samL -- 2022-12-12 8:58
 Added weather api support, some minor changes.
 ==============================================================
 
+danielY -- 2022-12-12 9:30 
+--------------------------------------------------------------
+Started on the stock api
+==============================================================
+
 ansonW -- 2022-12-12 22:34
 --------------------------------------------------------------
 Fixed storing to go with new newsapi code, function for getting articles by category
@@ -92,4 +102,9 @@ Fixed storing to go with new newsapi code, function for getting articles by cate
 kostaD -- 2022-12-13 22:44
 --------------------------------------------------------------
 Fixed up pages, made the dropdown in the navbar for specific topics work, and working on sending the specific topic we chose back to the python flask app as a variable so we know which information to fill the "topic.html" template with"
+==============================================================
+
+samD -- 2022-12-14 10:10
+--------------------------------------------------------------
+Worked a lot on the frontend and backend.  Articles now display properly and are stored properly in the backend.
 ==============================================================
