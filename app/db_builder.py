@@ -50,8 +50,10 @@ def exists(name,table):
         if i[0] == name:
             return True
     return False
+
 def clear_table(table):
     data_query(f"DELETE FROM {table}")
+
 def reset_articles():
     clear_table("Article")
     
@@ -100,6 +102,8 @@ def get_from_genre(genre):
     WHERE 
     genre="{genre}"''', fetchall=True)
     return resp
+
+add_account("soft", "dev")
 
 if __name__ == "__main__":
     reset_articles()

@@ -42,7 +42,7 @@ def create_account():
             return render_template("create_account.html")
         if db_builder.add_account(userIn, passIn) == -1:
             return render_template("create_account.html",
-            error_msg= f"account with username {userIn} already exists")
+            error_msg= f"Account with username {userIn} already exists")
         return render_template("sign_up_success.html")
     return redirect(url_for('index'))
     
@@ -56,28 +56,28 @@ def logout():
 def home():
     if(verify_session()):
         articles = db_builder.get_from_genre("General")
-        return render_template("home.html", articles = articles)#, articles = articles) 
+        return render_template("home.html", articles = articles)
     else:
         return render_template("error.html", msg="session could not be verifited")
 
 @app.route("/explore")
 def explore():
     if(verify_session()):
-        return render_template("explore.html")#, articles = articles) 
+        return render_template("explore.html") 
     else:
-        return render_template("error.html", msg="session could not be verifited")
+        return render_template("error.html", msg="Session could not be verifited")
 
 @app.route("/topic")
 def topic():
     if(verify_session()):
-        return render_template("topic.html")#, articles = articles) 
+        return render_template("topic.html") 
     else:
         return render_template("error.html", msg="session could not be verifited")
 
 @app.route("/about")
 def about():
     if(verify_session()):
-        return render_template("about.html")#, articles = articles) 
+        return render_template("about.html")
     else:
         return render_template("error.html", msg="session could not be verifited")
 

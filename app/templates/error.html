@@ -6,14 +6,18 @@
    </head>
  
    <body>
-    <h1>
-      There is an error
-    </h1>
      <h1>
-       Error: {{msg}}
+       
     </h1>
+    <div class="card text-white bg-warning mb-3" style="max-width: 90%; margin-left: 5%; margin-right: 5%; margin-top: 2.5%; margin-bottom: 2.5%;">
+      <div class="card-header">Header</div>
+      <div class="card-body">
+        <h5 class="card-title">Login Failed</h5>
+        <p class="card-text">Error: {{msg}}</p>
+      </div>
+    </div>
     <form action="/">
-      <input type=submit value="Back to Home">
+      <input type=submit value="Go back">
     </form>
    </body>
  
