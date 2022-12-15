@@ -92,6 +92,7 @@ def add_all_genres():
     for i, genre in enumerate(genres): 
         print(f"{((i / len(genres)) * 100):.2f}% done")
         add_from_genre(genre)
+
     print("Done.")
 def get_from_genre(genre):
     resp = data_query(f'''

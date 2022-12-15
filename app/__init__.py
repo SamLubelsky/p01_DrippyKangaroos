@@ -8,9 +8,12 @@ import newsapi
 from datetime import date
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
+genres = ["Business", "Entertainment", "General", "Health", "Science", "Sports", "Technology"]
+
 cur_date = str(date.today())
 if db_builder.new_day(cur_date):
     db_builder.update_date(cur_date)
+
 @app.route('/')
 def index():
     if 'username' in session:
@@ -27,7 +30,7 @@ def login():
         session['username'] = username
         session['password'] = password
         return redirect("/home")
-    if request.form.get('submit_button') is not None:
+    if request.form.get('create_acc_button') is not None:
         return render_template("create_account.html")
     response = make_response(render_template('error.html', msg="username or password is not correct"))
     return response
@@ -59,37 +62,37 @@ def logout():
 def home():
     if(verify_session()):
         articles = db_builder.get_from_genre("General")
-        return render_template("home.html", articles=articles)
+        return render_template("home.html", articles=articles, genres=genres)
     else:
         return render_template("error.html", msg="session could not be verifited")
 
 @app.route("/explore")
 def explore():
     if(verify_session()):
-        return render_template("explore.html")
+        return render_template("explore.html", genres=genres)
     else:
         return render_template("error.html", msg="Session could not be verifited")
 
 @app.route("/topic")
 def topic():
-    genre = request.args.get("topic")
-    articles = db_builder.get_from_genre(genre)
+    topic = request.args.get("topic")
+    articles = db_builder.get_from_genre(topic)
     if(verify_session()):
-        return render_template("topic.html", articles=articles)
+        return render_template("topic.html", articles=articles, topic=topic, genres=genres)
     else:
         return render_template("error.html", msg="session could not be verifited")
 
 @app.route("/about")
 def about():
     if(verify_session()):
-        return render_template("about.html")
+        return render_template("about.html", genres=genres)
     else:
         return render_template("error.html", msg="session could not be verifited")
 
 @app.route("/profile")
 def profile():
     if(verify_session()):
-        return render_template("profile.html", username=session['username'])#, articles = articles) 
+        return render_template("profile.html", username=session['username'], genres=genres)#, articles = articles) 
     else:
         return render_template("error.html", msg="session could not be verifited")
         
