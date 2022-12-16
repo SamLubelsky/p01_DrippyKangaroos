@@ -7,12 +7,30 @@ h3 {
     padding-bottom: 0vw;
 }
 
+.pad {
+    padding: .5rem;
+}
+
+.margin {
+    margin: .5rem;
+}
+
 nav {
     width: 100vw;
 }
 
 footer {
     margin: .5rem;
+}
+
+.searchbar {
+    padding: 1rem;
+    padding-right: 40rem;
+}
+
+.search-button {
+    color: white;
+    
 }
 
 .home-content {
