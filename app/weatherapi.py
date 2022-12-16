@@ -1,6 +1,8 @@
 import json
 import requests
-with open('keys/key_openweather.txt', 'r') as f:
+import key_manager 
+key_path = key_manager.get_keypath("openweather")
+with open(key_path, 'r') as f:
     key = f.read().strip()
 #print(key)
 nylat = "40.717831142775566" 
