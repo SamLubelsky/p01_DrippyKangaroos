@@ -38,11 +38,20 @@ def add_account(username, password):
 
 
 def verify(username, password):
+    pwd = False
+    user = False
     accounts = get_table_list("User")
     for account in accounts:
         if account[0] == username and account[1] == password:
-            return True
-    return False
+            return "verified"
+        if account[1] == password:
+            pwd = True
+        if account[0] == username:
+            user = True
+    if not user:
+        return "Username does not exist"
+    if user and not pwd:
+        return "Password is not correct"
 
 def exists(name,table):
     arr = get_table_list(table)

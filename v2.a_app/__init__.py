@@ -26,13 +26,13 @@ def login():
     # print(request.form)
     username = request.form.get('username')
     password = request.form.get('password')
-    if db_builder.verify(username,password):
+    if db_builder.verify(username,password) == "verified":
         session['username'] = username
         session['password'] = password
         return redirect("/home")
     if request.form.get('create_acc_button') is not None:
         return render_template("create_account.html")
-    response = make_response(render_template('error.html', msg="username or password is not correct"))
+    response = make_response(render_template('error.html', msg=db_builder.verify(username,password)))
     return response
 
 @app.route('/create_account', methods=['GET', 'POST'])
