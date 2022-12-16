@@ -32,8 +32,12 @@ footer {
 }
 
 .card-scroll {
-    height: 25rem;
+    height: 20rem;
     overflow-y: auto;
+}
+
+.card-img {
+    border-radius: 1rem;
 }
 
 .home-articles {
