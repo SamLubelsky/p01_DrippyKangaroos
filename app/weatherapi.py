@@ -21,7 +21,7 @@ def get_weather_data(lat=nylat, lon=nylon):
     return {'low': temp_min,
             'high': temp_max,
             'img_url':iconUrl,
-            'type': weather_info["weather"]["main"],
+            'type': weather_info["main"],
             'temp': weather_info["main"]["temp"],
             'feels_like': weather_info["main"]["feels_like"],
             'name': weather_info["name"]}
