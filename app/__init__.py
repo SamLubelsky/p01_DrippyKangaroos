@@ -80,7 +80,7 @@ def topic():
         weather_data = weatherapi.get_weather_data()
         topic = request.args.get("topic")
         articles = db_builder.get_from_genre(topic)
-        return render_template("topic.html", articles=articles, topic=topic, genres=genres, weather = weather_data)
+        return render_template("topic.html", articles=articles, topic=topic, genres=genres, weather=weather_data)
     else:
         return render_template("error.html", msg="session could not be verifited")
 

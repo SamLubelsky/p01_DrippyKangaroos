@@ -55,7 +55,18 @@ footer {
 }
 
 .card-img {
-    border-radius: 1rem;
+    border-radius: .5rem;
+}
+
+.card-title {
+    padding: .5rem;
+    padding-bottom: 0;
+    padding-left: 0;
+    font-size: 15px;
+}
+
+.card-subtitle {
+    font-size: 10px;
 }
 
 .home-articles {
