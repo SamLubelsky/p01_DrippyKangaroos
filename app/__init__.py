@@ -44,12 +44,16 @@ def create_account():
         passConfirm = request.form.get('password2')
         if passIn != passConfirm:
             return render_template("create_account.html", error_msg="Passwords don't match")
-        if userIn == None:
-            return render_template("create_account.html")
-        if db_builder.add_account(userIn, passIn) == -1:
+        if db_builder.add_account(userIn, passIn) == -1 and request.form.get('create_acc_button2') is not None:
             return render_template("create_account.html",
-            error_msg= f"Account with username {userIn} already exists")
-        return render_template("sign_up_success.html")
+                error_msg= f"Account with username {userIn} already exists")
+        if db_builder.add_account(userIn, passIn) == -2 and request.form.get('create_acc_button2') is not None:
+            return render_template("create_account.html", 
+                error_msg="Username/Password cannot be empty")
+        if request.form.get('create_acc_button2') is None:
+            return render_template("create_account.html")
+        else:
+            return render_template("sign_up_success.html")
     return redirect(url_for('index'))
     
 @app.route('/logout')

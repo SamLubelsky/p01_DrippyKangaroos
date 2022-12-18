@@ -20,23 +20,30 @@
     </nav>
 
     <br>
-   <form action="/login" method="POST">
-      <div class="mb-3">
-        <label for ="usernameInput" class = "form-label"> Username</label>
-        <input name = "username" type="text" class="form-control" id="usernameInput" placeholder="Enter Username Here">
-      </div>
+    <h1 style="padding-left: .5rem;">Login</h1>
+    <br>
 
-      <div class="mb-3">
-        <label for ="passwordInput" class = "form-label"> Password</label>
-        <input name = "password" type="password" class="form-control" id="passwordInput" placeholder="Enter Password Here">
-      </div>
+    <div class="login-form">
+      <form action="/login" method="POST">
+          <div class="mb-3">
+            <label for ="usernameInput" class = "form-label"> Username</label>
+            <input name = "username" type="text" class="form-control" id="usernameInput" placeholder="Enter Username Here">
+          </div>
 
-      <button type="submit" class="btn btn-primary">Login</button>
-    </form>  
+          <div class="mb-3">
+            <label for ="passwordInput" class = "form-label"> Password</label>
+            <input name = "password" type="password" class="form-control" id="passwordInput" placeholder="Enter Password Here">
+          </div>
+        
 
-    <form action="/create_account" method="POST">
-      <button type="submit" name="create_acc_button" class="btn btn-info">Create New Account</button>
-    </form>
+        <button type="submit" class="btn btn-primary">Login</button>
+      </form>
+      
+      <form action="/create_account" method="POST">
+        <button type="submit" name="create_acc_button" class="btn btn-info">Create New Account</button>
+      </form>
+    </div>  
+      
 
     <footer>
       <div class="d-flex flex-fill flex-column flex-sm-row justify-content-between py-4 my-4 border-top">

@@ -19,26 +19,33 @@
       </div>
     </nav>
     <br>
-    <h1> Create Your Account</h1>
+    <h1 style="padding-left: .5rem;"> Create Your Account</h1>
     <br>
-    <h2 style="color:red">{{error_msg}}</h2>
-   <form action="/create_account" method="POST">
-    <div class="mb-3">
-      <label for ="usernameInput" class = "form-label"> Username</label>
-      <input name = "username" type="text" class="form-control" id="usernameInput" placeholder="Enter Username Here">
-    </div>  
+    <h4 style="color:red; padding-left:1rem;">{{error_msg}}</h4>
+    <div class="create_account">
+      <form action="/create_account" method="POST">
+        <div class="mb-3">
+          <label for ="usernameInput" class = "form-label"> Username</label>
+          <input name = "username" type="text" class="form-control" id="usernameInput" placeholder="Enter Username Here">
+        </div>  
 
-    <div class="mb-3">
-      <label for ="passwordInput" class = "form-label"> Password</label>
-      <input name = "password" type="password" class="form-control" id="passwordInput" placeholder="Enter Password Here">
+        <div class="mb-3">
+          <label for ="passwordInput" class = "form-label"> Password</label>
+          <input name = "password" type="password" class="form-control" id="passwordInput" placeholder="Enter Password Here">
+        </div>
+        <div class="mb-3">
+          <label for ="passwordInput" class = "form-label"> Password Confirmation</label>
+          <input name = "password2" type="password" class="form-control" id="passwordInput" placeholder="Enter Password Here">
+        </div>
+        <button name="create_acc_button2" type="submit" class="btn btn-info">Create New Account</button>
+      </form>  
     </div>
-    <div class="mb-3">
-      <label for ="passwordInput" class = "form-label"> Password Confirmation</label>
-      <input name = "password2" type="password" class="form-control" id="passwordInput" placeholder="Enter Password Here">
-    </div>
-    <input type="submit" class="btn btn-info" value="Create New Account">
-    </form>  
-     
+
+    <footer>
+      <div class="d-flex flex-fill flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
+        <p>© 2022 Drippy Kangaroos, Inc.</p>
+      </div>
+    </footer>
   </body>
 
 </html>

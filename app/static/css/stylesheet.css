@@ -81,6 +81,27 @@ footer {
     margin: 1rem;
 }
 
+.login-form {
+    padding-left: 1rem;
+    padding-right: 65rem;
+}
+
+.create_account {
+    padding-left: 1rem;
+    padding-right: 65rem;
+}
+
+.sign-up-success {
+    padding: 1rem;
+}
+
 .logout {
     margin: 1rem;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 2.5rem;  
 }
