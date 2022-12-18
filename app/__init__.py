@@ -71,8 +71,11 @@ def home():
     else:
         return render_template("error.html", msg="session could not be verifited")
 
-@app.route("/explore")
+@app.route("/explore", methods=['GET', 'POST'])
 def explore():
+    if request.method == 'POST':
+        search_query = request.form.get('search_query')
+        print(search_query)
     if(verify_session()):
         return render_template("explore.html", genres=genres)
     else:
