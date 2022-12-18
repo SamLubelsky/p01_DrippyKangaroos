@@ -4,26 +4,30 @@ import json
 startpoint = "https://newsapi.org/v2"
 api_key = ""
 with open("keys/key_newsapi.txt", 'r') as k:
-    api_key = k.read().strip() 
+    api_key = k.read().strip()
+
 
 def request_articles(query, n=1):
     url = f"{startpoint}/everything?q={query}&language=en&apiKey={api_key}"
     return request(url, n)
 
+
 def request_top_headlines(category, n=10):
     url = f"{startpoint}/top-headlines?category={category}&language=en&apiKey={api_key}"
     return request(url, n)
+
 
 def request(url, n):
     response = urlopen(url)
     data_json = json.loads(response.read())
     return data_json["articles"][:n]
 
+
 def article_info(article):
     return {
         "url": article["url"],
         "image": article["urlToImage"],
-        "title": article["title"], 
+        "title": article["title"],
         "description": article["description"],
         "date": article["publishedAt"][:10],
         "author": article["author"]
