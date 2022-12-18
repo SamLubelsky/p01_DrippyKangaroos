@@ -113,3 +113,11 @@ samD -- 2022-12-15 15:14
 --------------------------------------------------------------
 Pretty much did a little bit of everything, a lot of tightening up things and fixing some bugs/deficiencies in the codebase.  Did some work on the frontend and both making things look nicer and able to use more data from the backend, worked on weatherapi, and changed some of the flask routing and databse storage
 ==============================================================
+
+kostaD -- 2022-12-13 22:44
+--------------------------------------------------------------
+Fixed up the frontend more, the login/create_account/success pages are uniformly styled now, it looks a lot nicer.
+Tweaked some things in the python/flask backend with authentication of username and password on the /create_account page, just ironing out small logic bugs.
+Added a couple of things to db_builder and __init__ to ensure an account with an empty string as a password or username is not permitted, made it so the error is properly displayed in the html.
+Implemented search bar, set up the functionality in __init__ to use the input from the search bar for the API fetching. The search input is stored in search_query via a POST request.
+==============================================================

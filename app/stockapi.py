@@ -1,19 +1,20 @@
-import requests
+from urllib.request import urlopen
+import json
 
-startpoint = "https://data.alpaca.markets/v2/stocks"
-API_KEY_ID = ""
-SECRET_KEY = ""
+startpoint = "https://query1.finance.yahoo.com/v11/finance/quoteSummary"
+
+api_key = ""
 with open("keys/key_newsapi.txt", 'r') as k:
-    k = k.read().strip().splitlines()
-    API_KEY_ID = k[0]
-    SECRET_KEY = k[1]
-
-headers = {
-    "APCA-API-KEY-ID": API_KEY_ID,
-    "APCA-API-SECRET-KEY": SECRET_KEY,
-}
+    api_key = k.read().strip().splitlines()
 
 def request_stock(stock):
-    url = f"{startpoint}/{symbol}/quotes/latest"
-    response = requests.get(url, headers=headers)
-    return response.json()
+    url = f"{startpoint}/{stock}?modules=financialData"
+    response = urlopen(url)
+    data_json = json.loads(response.read())
+    return data_json["quoteSummary"]["result"][0]["financialData"]
+
+def get_price(stock):
+    stock = request_stock(stock)
+    return stock["currentPrice"]["fmt"]
+
+print(get_price("aapl"))

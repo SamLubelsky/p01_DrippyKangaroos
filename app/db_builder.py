@@ -31,11 +31,12 @@ def get_table_list(name):
     return output
 
 def add_account(username, password):
+    if username == None or username == "" or password == None or password == "":
+        return -2
     if not(exists(username,"User")):
         data_query("INSERT INTO User VALUES (?, ?)", (username, password))
     else:
         return -1
-
 
 def verify(username, password):
     accounts = get_table_list("User")
@@ -64,13 +65,16 @@ def new_day(cur_date):
         return True
     else:
         return False
+
 def update_date(new_date):
     reset_articles()
     add_all_genres()
     with open('update_date.txt', 'w') as f:
         f.write(new_date)
+
 def add_article(title, imageUrl, url, summary, genre, source):
     data_query("INSERT INTO Article VALUES (?, ?, ?, ?, ?, ?)", (title, url, imageUrl, summary, genre, source))
+
 def add_from_genre(genre):
     #print("starting")
     articles = newsapi.request_top_headlines(genre)
@@ -86,6 +90,7 @@ def add_from_genre(genre):
         #print(summary, type(summary))
         #print(genre, type(genre))
         add_article(title, url, imageUrl, summary, genre, source)
+
 def add_all_genres():
     print("Its a new day! I'm grabbing the newest headlines for today")
     genres = ["Business", "Entertainment", "General", "Health", "Science", "Sports", "Technology"]
@@ -94,6 +99,7 @@ def add_all_genres():
         add_from_genre(genre)
 
     print("Done.")
+
 def get_from_genre(genre):
     resp = data_query(f'''
     SELECT

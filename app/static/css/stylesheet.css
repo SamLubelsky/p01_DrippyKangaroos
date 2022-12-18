@@ -7,12 +7,30 @@ h3 {
     padding-bottom: 0vw;
 }
 
+.pad {
+    padding: .5rem;
+}
+
+.margin {
+    margin: .5rem;
+}
+
 nav {
     width: 100vw;
 }
 
 footer {
     margin: .5rem;
+}
+
+.searchbar {
+    padding: 1rem;
+    padding-right: 40rem;
+}
+
+.search-button {
+    color: white;
+    
 }
 
 .home-content {
@@ -37,7 +55,18 @@ footer {
 }
 
 .card-img {
-    border-radius: 1rem;
+    border-radius: .5rem;
+}
+
+.card-title {
+    padding: .5rem;
+    padding-bottom: 0;
+    padding-left: 0;
+    font-size: 15px;
+}
+
+.card-subtitle {
+    font-size: 10px;
 }
 
 .home-articles {
@@ -52,6 +81,27 @@ footer {
     margin: 1rem;
 }
 
+.login-form {
+    padding-left: 1rem;
+    padding-right: 65rem;
+}
+
+.create_account {
+    padding-left: 1rem;
+    padding-right: 65rem;
+}
+
+.sign-up-success {
+    padding: 1rem;
+}
+
 .logout {
     margin: 1rem;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 2.5rem;  
 }

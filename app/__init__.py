@@ -44,12 +44,16 @@ def create_account():
         passConfirm = request.form.get('password2')
         if passIn != passConfirm:
             return render_template("create_account.html", error_msg="Passwords don't match")
-        if userIn == None:
-            return render_template("create_account.html")
-        if db_builder.add_account(userIn, passIn) == -1:
+        if db_builder.add_account(userIn, passIn) == -1 and request.form.get('create_acc_button2') is not None:
             return render_template("create_account.html",
-            error_msg= f"Account with username {userIn} already exists")
-        return render_template("sign_up_success.html")
+                error_msg= f"Account with username {userIn} already exists")
+        if db_builder.add_account(userIn, passIn) == -2 and request.form.get('create_acc_button2') is not None:
+            return render_template("create_account.html", 
+                error_msg="Username/Password cannot be empty")
+        if request.form.get('create_acc_button2') is None:
+            return render_template("create_account.html")
+        else:
+            return render_template("sign_up_success.html")
     return redirect(url_for('index'))
     
 @app.route('/logout')
@@ -67,8 +71,11 @@ def home():
     else:
         return render_template("error.html", msg="session could not be verifited")
 
-@app.route("/explore")
+@app.route("/explore", methods=['GET', 'POST'])
 def explore():
+    if request.method == 'POST':
+        search_query = request.form.get('search_query')
+        print(search_query)
     if(verify_session()):
         return render_template("explore.html", genres=genres)
     else:
@@ -80,7 +87,7 @@ def topic():
         weather_data = weatherapi.get_weather_data()
         topic = request.args.get("topic")
         articles = db_builder.get_from_genre(topic)
-        return render_template("topic.html", articles=articles, topic=topic, genres=genres, weather = weather_data)
+        return render_template("topic.html", articles=articles, topic=topic, genres=genres, weather=weather_data)
     else:
         return render_template("error.html", msg="session could not be verifited")
 
