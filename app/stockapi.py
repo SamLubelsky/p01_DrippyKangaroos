@@ -1,6 +1,6 @@
 from urllib.request import urlopen
 import json
-
+# https://syncwith.com/yahoo-finance/yahoo-finance-api
 startpoint = "https://query1.finance.yahoo.com/v11/finance/quoteSummary"
 
 api_key = ""
