@@ -141,7 +141,22 @@ def get_from_genre(genre):
     genre="{genre}"''', fetchall=True)
     return resp
 
-
+def edit_story(storyName, newText, contributor):
+    if story_exists(storyName):
+        storyInfo = get_story_info(storyName)
+        fullText = storyInfo[0] + newText 
+        print(fullText)
+        contributors = contributor + "," + storyInfo[2] 
+        query(f'''
+        UPDATE storyInfo
+        SET fullStory = ?,
+        lastAdded = ?,
+        Contributors = ?
+        WHERE
+        storyName = ?
+        ''', (fullText, newText, contributors, storyName))
+    else:
+        return -1
 add_account("soft", "dev")
 
 if __name__ == "__main__":
