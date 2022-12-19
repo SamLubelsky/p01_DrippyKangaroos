@@ -56,9 +56,9 @@
                     </div>
                 </nav>
 
-                <form method="POST">
+                <form action="/explore  " method="GET" >
                     <div class="input-group searchbar">
-                        <input type="search" class="form-control form-control text-bg" style="border-radius:.5rem;" placeholder="Search..." aria-label="Search" name="search_query">
+                        <input type="search" name = "query" class="form-control form-control text-bg" style="border-radius:.5rem;" placeholder="Search..." aria-label="Search" name="search_query">
 
                         <div class="input-group-append" style="margin-right:1rem; margin-left:.5rem;">
                         <button type="button" class="btn btn-primary search-button" style="color:white;">Search...</button>
@@ -66,18 +66,29 @@
                             <span class="sr-only">Toggle Dropdown</span>
                         </button>
 
-                        <div class="dropdown-menu" style="padding:.5rem;">
+                        <!--<div class="dropdown-menu" style="padding:.5rem;">
                             <a class="dropdown-item" href="#">Action</a>
                             <a class="dropdown-item" href="#">Another action</a>
                             <a class="dropdown-item" href="#">Something else here</a>
                             <div role="separator" class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#">Separated link</a>
                         </div>
-                        </div>
+                        </div> -->
                     </div>
                 </form>
             </div>
-
+            {% for article in articles %}
+            <div class="card">
+                <div class="card-body card-scroll">
+                    {% if article['urlToImage'] != "None" %}
+                    <img src={{article['urlToImage']}} class="card-img">
+                    {% endif %}
+                    <h5 class="card-title">{{article['title']}}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{article['source']['name']}}</h6>   
+                    <a href="{{article['url']}}" target="_blank" class="card-link btn btn-primary" role="button">Visit</a>
+                </div>
+            </div>
+            {% endfor %}
             <footer>
                 <div class="d-flex flex-fill flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
                 <p>© 2022 Drippy Kangaroos, Inc.</p>
