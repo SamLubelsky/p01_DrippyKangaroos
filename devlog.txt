@@ -121,3 +121,13 @@ Tweaked some things in the python/flask backend with authentication of username 
 Added a couple of things to db_builder and __init__ to ensure an account with an empty string as a password or username is not permitted, made it so the error is properly displayed in the html.
 Implemented search bar, set up the functionality in __init__ to use the input from the search bar for the API fetching. The search input is stored in search_query via a POST request.
 ==============================================================
+
+danielY -- 2022-12-18 9:30 
+--------------------------------------------------------------
+Finshed stock api
+==============================================================
+
+danielY -- 2022-12-19 9:30 
+--------------------------------------------------------------
+Added CSV with all available stock names
+==============================================================
