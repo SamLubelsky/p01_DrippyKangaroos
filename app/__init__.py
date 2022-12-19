@@ -1,6 +1,6 @@
-from flask import Flask             #facilitate flask webserving
-from flask import render_template, request   #facilitate jinja templating
-from flask import session, redirect, url_for, make_response 
+from flask import Flask  # facilitate flask webserving
+from flask import render_template, request  # facilitate jinja templating
+from flask import session, redirect, url_for, make_response
 import os
 import requests
 import db_builder
@@ -8,54 +8,58 @@ import weatherapi
 from datetime import date
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
-genres = ["Business", "Entertainment", "General", "Health", "Science", "Sports", "Technology"]
+genres = ["Business", "Entertainment", "General",
+          "Health", "Science", "Sports", "Technology"]
 
 cur_date = str(date.today())
 if db_builder.new_day(cur_date):
     db_builder.update_date(cur_date)
+
 
 @app.route('/')
 def index():
     if 'username' in session:
         if db_builder.verify(session['username'], session['password']):
             return redirect("/home")
-    return render_template('login.html') 
+    return render_template('login.html')
 
-@app.route('/login', methods = ['GET','POST'])
+
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     # print(request.form)
     username = request.form.get('username')
     password = request.form.get('password')
-    if db_builder.verify(username,password):
+    if db_builder.verify(username, password) == "verified":
         session['username'] = username
         session['password'] = password
         return redirect("/home")
     if request.form.get('create_acc_button') is not None:
         return render_template("create_account.html")
-    response = make_response(render_template('error.html', msg="username or password is not correct"))
+    response = make_response(render_template(
+        'error.html', msg=db_builder.verify(username,password)))
     return response
+
 
 @app.route('/create_account', methods=['GET', 'POST'])
 def create_account():
     accounts = db_builder.get_table_list("User")
     if request.method == 'POST':
         userIn = request.form.get('username')
-        passIn = request.form.get('password') 
+        passIn = request.form.get('password')
         passConfirm = request.form.get('password2')
         if passIn != passConfirm:
             return render_template("create_account.html", error_msg="Passwords don't match")
         if db_builder.add_account(userIn, passIn) == -1 and request.form.get('create_acc_button2') is not None:
-            return render_template("create_account.html",
-                error_msg= f"Account with username {userIn} already exists")
+            return render_template("create_account.html", error_msg=f"Account with username {userIn} already exists")
         if db_builder.add_account(userIn, passIn) == -2 and request.form.get('create_acc_button2') is not None:
-            return render_template("create_account.html", 
-                error_msg="Username/Password cannot be empty")
+            return render_template("create_account.html", error_msg="Username/Password cannot be empty")
         if request.form.get('create_acc_button2') is None:
             return render_template("create_account.html")
         else:
             return render_template("sign_up_success.html")
     return redirect(url_for('index'))
-    
+
+
 @app.route('/logout')
 def logout():
     session.pop('username', None)
@@ -64,26 +68,28 @@ def logout():
 
 @app.route("/home", methods=['GET', 'POST'])
 def home():
-    if(verify_session()):
+    if (verify_session()):
         weather_data = weatherapi.get_weather_data()
         articles = db_builder.get_from_genre("General")
-        return render_template("home.html", articles=articles, genres=genres, weather = weather_data)
+        return render_template("home.html", articles=articles, genres=genres, weather=weather_data)
     else:
         return render_template("error.html", msg="session could not be verifited")
+
 
 @app.route("/explore", methods=['GET', 'POST'])
 def explore():
     if request.method == 'POST':
         search_query = request.form.get('search_query')
         print(search_query)
-    if(verify_session()):
+    if (verify_session()):
         return render_template("explore.html", genres=genres)
     else:
         return render_template("error.html", msg="Session could not be verifited")
 
+
 @app.route("/topic")
 def topic():
-    if(verify_session()):
+    if (verify_session()):
         weather_data = weatherapi.get_weather_data()
         topic = request.args.get("topic")
         articles = db_builder.get_from_genre(topic)
@@ -91,27 +97,31 @@ def topic():
     else:
         return render_template("error.html", msg="session could not be verifited")
 
+
 @app.route("/about")
 def about():
-    if(verify_session()):
+    if (verify_session()):
         return render_template("about.html", genres=genres)
     else:
         return render_template("error.html", msg="session could not be verifited")
 
+
 @app.route("/profile")
 def profile():
-    if(verify_session()):
-        return render_template("profile.html", username=session['username'], genres=genres)#, articles = articles) 
+    if (verify_session()):
+        # , articles = articles)
+        return render_template("profile.html", username=session['username'], genres=genres)
     else:
         return render_template("error.html", msg="session could not be verifited")
-        
+
+
 def verify_session():
     if 'username' in session and 'password' in session:
         if db_builder.verify(session['username'], session['password']):
             return True
     return False
 
+
 if __name__ == "__main__":
     app.debug = True
     app.run()
-

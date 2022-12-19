@@ -2,29 +2,47 @@
  <html>
  
    <head>
+    <title>!!Error!!</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <style>
+      footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 2.5rem;  
+      }
+
+      .page-container {
+          position: relative;
+          min-height: 100vh;
+      }
+
+      .content-wrap {
+          padding-bottom: 2.5rem;
+      }
+    </style>
   </head>
  
    <body>
-     <h1>
-       
-    </h1>
-    <div class="card text-white bg-warning mb-3" style="max-width: 90%; margin-left: 5%; margin-right: 5%; margin-top: 2.5%; margin-bottom: 2.5%;">
-      <div class="card-header">!!Error!!</div>
-      <div class="card-body">
-        <h5 class="card-title">Login Failed</h5>
-        <p class="card-text">Error: {{msg}}</p>
+    <div class="page-container">
+      <div class="content-wrap">
+        <div class="card text-white bg-warning mb-3" style="max-width: 90%; margin-left: 5%; margin-right: 5%; margin-top: 2.5%; margin-bottom: 2.5%;">
+          <div class="card-header">!!Error!!</div>
+          <div class="card-body">
+            <h5 class="card-title">Login Failed</h5>
+            <p class="card-text">Error: {{msg}}</p>
+          </div>
+        </div>
+        <form action="/" style="margin:.5rem;">
+          <input class="btn btn-info"  type=submit value="Go back">
+        </form>
       </div>
-    </div>
-    <form action="/" style="margin:.5rem;">
-      <input class="btn btn-info"  type=submit value="Go back">
-    </form>
 
-    <footer>
-      <div class="d-flex flex-fill flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
-        <p>© 2022 Drippy Kangaroos, Inc.</p>
-      </div>
-    </footer>
+      <footer>
+        <div class="d-flex flex-fill flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
+          <p>© 2022 Drippy Kangaroos, Inc.</p>
+        </div>
+      </footer>
+    </div>
    </body>
- 
  </html>
