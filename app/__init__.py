@@ -5,12 +5,24 @@ import os
 import requests
 import db_builder
 import weatherapi
+import stockapi
 from datetime import date
-import 
+import csv
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
 genres = ["Business", "Entertainment", "General",
           "Health", "Science", "Sports", "Technology"]
+
+stocks = []
+
+def read_stocks():
+    with open('S&P_500_companies.csv', newline='') as csvfile:
+        spamreader = csv.reader(csvfile, quotechar='|')
+        for row in spamreader:
+            stocks.append(row)
+
+read_stocks()
+print(stocks)
 
 cur_date = str(date.today())
 if db_builder.new_day(cur_date):
@@ -70,9 +82,11 @@ def logout():
 @app.route("/home", methods=['GET', 'POST'])
 def home():
     if (verify_session()):
+        username = request.form.get('username')
         weather_data = weatherapi.get_weather_data()
         articles = db_builder.get_from_genre("General")
-        return render_template("home.html", articles=articles, genres=genres, weather=weather_data)
+        stocks = db_builder.get_stocks(username).split(",")
+        return render_template("home.html", articles=articles, genres=genres, weather=weather_data, stocks=stocks)
     else:
         return render_template("error.html", msg="session could not be verifited")
 
@@ -82,7 +96,6 @@ def explore():
     if request.method == 'POST':
         search_query = request.form.get('search_query')
         print(search_query)
-        newsapi.
     if (verify_session()):
         return render_template("explore.html", genres=genres)
     else:
@@ -112,6 +125,9 @@ def about():
 def profile():
     if (verify_session()):
         # , articles = articles)
+        # if request.form.get('save_stocks_button') is not None:
+        #     stocks=
+        #     db_builder.change_stocks()
         return render_template("profile.html", username=session['username'], genres=genres)
     else:
         return render_template("error.html", msg="session could not be verifited")
@@ -122,7 +138,6 @@ def verify_session():
         if db_builder.verify(session['username'], session['password']):
             return True
     return False
-
 
 if __name__ == "__main__":
     app.debug = True
