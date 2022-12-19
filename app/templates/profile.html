@@ -56,6 +56,16 @@
                     </div>
                 </nav>
 
+                <form action="/create_account" method="POST">
+                    <label for="stocks">Select the stocks you'd like to track:</label>
+                    <select name="stocks" id="stocks">
+                        {{% for stock in stocks %}}
+                        <option value="{{stock[0].lower()}}">{{stock[0]}}: {{stock[1]}}</option>
+                        {{% endfor %}}
+                    </select>
+                    <button type="submit" name="save_stocks_button" class="btn btn-info">Submit</button>
+                </form>
+
                 <h3>Username: {{username}}</h3>
                 <a href="/logout"><button class="btn btn-danger logout">Logout</button></a>
             </div>

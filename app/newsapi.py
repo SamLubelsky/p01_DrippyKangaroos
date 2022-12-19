@@ -34,8 +34,8 @@ def article_info(article):
     }
 
 
-if __name__ == "__main__":
-    articles = request_articles("bitcoin", 3)
-    for article in articles:
-        info = article_info(article)
-        print(info)
+# if __name__ == "__main__":
+#     articles = request_articles("bitcoin", 3)
+#     for article in articles:
+#         info = article_info(article)
+#         print(info)
