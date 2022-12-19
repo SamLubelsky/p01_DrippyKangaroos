@@ -6,6 +6,7 @@ import requests
 import db_builder
 import weatherapi
 from datetime import date
+import 
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
 genres = ["Business", "Entertainment", "General",
@@ -81,6 +82,7 @@ def explore():
     if request.method == 'POST':
         search_query = request.form.get('search_query')
         print(search_query)
+        newsapi.
     if (verify_session()):
         return render_template("explore.html", genres=genres)
     else:
