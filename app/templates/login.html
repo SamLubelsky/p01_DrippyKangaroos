@@ -9,48 +9,53 @@
   </head>
   
   <body>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-    <div class="container-fluid">
-        <div class="mx-auto order-0" style="padding-left:1.5rem; padding-right:1.5rem;">
-            <a class="navbar-brand mx-auto" href="/">Newsify</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".dual-collapse2">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-        </div>
+    <div class="page-container">
+      <div class="content-wrap">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <div class="container-fluid">
+            <div class="mx-auto order-0" style="padding-left:1.5rem; padding-right:1.5rem;">
+                <a class="navbar-brand mx-auto" href="/">Newsify</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".dual-collapse2">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+          </div>
+        </nav>
+
+        <br>
+        <h1 style="padding-left: .5rem;">Login</h1>
+        <br>
+
+        <div class="login-form">
+          <form action="/login" method="POST">
+              <div class="mb-3">
+                <label for ="usernameInput" class = "form-label"> Username</label>
+                <input name = "username" type="text" class="form-control" id="usernameInput" placeholder="Enter Username Here">
+              </div>
+
+              <div class="mb-3">
+                <label for ="passwordInput" class = "form-label"> Password</label>
+                <input name = "password" type="password" class="form-control" id="passwordInput" placeholder="Enter Password Here">
+              </div>
+            
+
+            <button type="submit" class="btn btn-primary">Login</button>
+          </form>
+          
+          <form action="/create_account" method="POST">
+            <button type="submit" name="create_acc_button" class="btn btn-info">Create New Account</button>
+          </form>
+        </div>  
       </div>
-    </nav>
-
-    <br>
-    <h1 style="padding-left: .5rem;">Login</h1>
-    <br>
-
-    <div class="login-form">
-      <form action="/login" method="POST">
-          <div class="mb-3">
-            <label for ="usernameInput" class = "form-label"> Username</label>
-            <input name = "username" type="text" class="form-control" id="usernameInput" placeholder="Enter Username Here">
-          </div>
-
-          <div class="mb-3">
-            <label for ="passwordInput" class = "form-label"> Password</label>
-            <input name = "password" type="password" class="form-control" id="passwordInput" placeholder="Enter Password Here">
-          </div>
         
 
-        <button type="submit" class="btn btn-primary">Login</button>
-      </form>
-      
-      <form action="/create_account" method="POST">
-        <button type="submit" name="create_acc_button" class="btn btn-info">Create New Account</button>
-      </form>
-    </div>  
-      
-
-    <footer>
-      <div class="d-flex flex-fill flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
-        <p>© 2022 Drippy Kangaroos, Inc.</p>
-      </div>
-    </footer>
+      <footer>
+        <div class="d-flex flex-fill flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
+          <p>© 2022 Drippy Kangaroos, Inc.</p>
+        </div>
+      </footer>
+    </div>
+    
   </body>
 
 </html>

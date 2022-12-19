@@ -66,7 +66,6 @@ def logout():
     session.pop('password', None)
     return redirect(url_for('index'))
 
-
 @app.route("/home", methods=['GET', 'POST'])
 def home():
     if (verify_session()):
