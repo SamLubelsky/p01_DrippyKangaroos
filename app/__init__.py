@@ -6,11 +6,8 @@ import requests
 import json
 import db_builder
 import weatherapi
-<<<<<<< HEAD
 import newsapi
-=======
 import stockapi
->>>>>>> 2eca6be2379071c4e8a79847d7da2048a087db80
 from datetime import date
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
@@ -104,17 +101,8 @@ def about():
 
 @app.route("/profile")
 def profile():
-<<<<<<< HEAD
     if(verify_session()):
         return render_template("profile.html", username=session['username'], genres=genres)#, articles = articles) 
-=======
-    if (verify_session()):
-        # , articles = articles)
-        # if request.form.get('save_stocks_button') is not None:
-        #     stocks=
-        #     db_builder.change_stocks()
-        return render_template("profile.html", username=session['username'], genres=genres)
->>>>>>> 2eca6be2379071c4e8a79847d7da2048a087db80
     else:
         return render_template("error.html", msg="session could not be verifited")
         
