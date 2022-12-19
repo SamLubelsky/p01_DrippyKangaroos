@@ -141,6 +141,8 @@ def get_from_genre(genre):
     genre="{genre}"''', fetchall=True)
     return resp
 
+def get_stocks(username):
+    return ","
 add_account("soft", "dev")
 
 if __name__ == "__main__":

@@ -66,26 +66,26 @@
                             <span class="sr-only">Toggle Dropdown</span>
                         </button>
 
-                        <div class="dropdown-menu" style="padding:.5rem;">
+                        <!--<div class="dropdown-menu" style="padding:.5rem;">
                             <a class="dropdown-item" href="#">Action</a>
                             <a class="dropdown-item" href="#">Another action</a>
                             <a class="dropdown-item" href="#">Something else here</a>
                             <div role="separator" class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#">Separated link</a>
                         </div>
-                        </div>
+                        </div> -->
                     </div>
                 </form>
             </div>
             {% for article in articles %}
             <div class="card">
                 <div class="card-body card-scroll">
-                    {% if article[2] != "None" %}
-                    <img src={{article[2]}} class="card-img">
+                    {% if article['urlToImage'] != "None" %}
+                    <img src={{article['urlToImage']}} class="card-img">
                     {% endif %}
-                    <h5 class="card-title">{{article[title]}}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">{{article[source[name]]}}</h6>   
-                    <a href="{{article[1]}}" target="_blank" class="card-link btn btn-primary" role="button">Visit</a>
+                    <h5 class="card-title">{{article['title']}}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{article['source']['name']}}</h6>   
+                    <a href="{{article['url']}}" target="_blank" class="card-link btn btn-primary" role="button">Visit</a>
                 </div>
             </div>
             {% endfor %}
