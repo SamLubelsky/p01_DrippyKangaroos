@@ -5,6 +5,7 @@ import os
 import requests
 import db_builder
 import weatherapi
+import stockapi
 from datetime import date
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
@@ -69,9 +70,11 @@ def logout():
 @app.route("/home", methods=['GET', 'POST'])
 def home():
     if (verify_session()):
+        username = request.form.get('username')
         weather_data = weatherapi.get_weather_data()
         articles = db_builder.get_from_genre("General")
-        return render_template("home.html", articles=articles, genres=genres, weather=weather_data)
+        stocks = db_builder.get_stocks(username).split(",")
+        return render_template("home.html", articles=articles, genres=genres, weather=weather_data, stocks=stocks)
     else:
         return render_template("error.html", msg="session could not be verifited")
 
@@ -110,6 +113,9 @@ def about():
 def profile():
     if (verify_session()):
         # , articles = articles)
+        # if request.form.get('save_stocks_button') is not None:
+        #     stocks=
+        #     db_builder.change_stocks()
         return render_template("profile.html", username=session['username'], genres=genres)
     else:
         return render_template("error.html", msg="session could not be verifited")
