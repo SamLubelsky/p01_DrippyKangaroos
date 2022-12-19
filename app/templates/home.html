@@ -79,7 +79,8 @@
                                     <h5 class="card-title">Weather</h5>
                                     <img src={{weather['img_url']}} width = "100" height = "100">
                                     <h6 class="card-subtitle mb-2 text-muted">{{weather['type']}}, {{weather['name']}}</h6>
-                                    <p class="card-text card-summary">Low: {{weather['low']}}°F High: {{weather['high']}}°F</p>
+                                    <p class="card-text card-summary">Temp: {{weather['temp']}}°F, Feels Like: {{weather['feels_like']}}°F
+                                    <br>Low: {{weather['low']}}°F, High: {{weather['high']}}°F</p>
                                     <a href="{{reference_link}}" target="_blank" class="card-link btn btn-primary" role="button">Visit</a>
                                 </div>
                             </div>
