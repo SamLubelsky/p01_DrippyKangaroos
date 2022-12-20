@@ -29,7 +29,7 @@
                                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Topics</a>
                                     <form action="/topic">
                                         <div class="dropdown-menu">
-                                            {% for genre in genres%}
+                                            {% for genre in genres %}
                                             <input name="topic" value="{{genre}}" type="submit" class="dropdown-item" id="{{genre.lower()}}">
                                             {% endfor %}
                                         </div>
@@ -56,14 +56,14 @@
                     </div>
                 </nav>
 
-                <form action="/create_account" method="POST">
+                <form method="POST">
                     <label for="stocks">Select the stocks you'd like to track:</label>
                     <select name="stocks" id="stocks">
                         {% for stock in stocks %}
                         <option value="{{stock[0].lower()}}">{{stock[0]}}: {{stock[1]}}</option>
                         {% endfor %}
                     </select>
-                    <button type="submit" name="save_stocks_button" class="btn btn-info">Submit</button>
+                    <button type="submit" name="save_stocks_button" class="btn btn-primary">Save</button>
                 </form>
 
                 <h3>Username: {{username}}</h3>

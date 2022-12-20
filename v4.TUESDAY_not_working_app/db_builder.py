@@ -39,10 +39,11 @@ def get_table_list(name):
 
 
 def add_account(username, password):
-    if not(exists(username, "User")):
-        default_stocks = "AAPL,MSFT,AMZN"
-        data_query("INSERT INTO User VALUES (?, ?, ?)", (username, password, default_stocks))
-        #print(data_query(f'''SELECT * FROM User WHERE username = "{username}"''', fetchall = True))
+    if username == None or username == "" or password == None or password == "":
+        return -2
+    if not (exists(username, "User")):
+        data_query("INSERT INTO User VALUES (?, ?, ?)", (username, password, "AAPL"))
+        print(data_query(f'''SELECT * FROM User WHERE username = "{username}"''', fetchall = True))
     else:
         return -1
 
@@ -137,15 +138,20 @@ def get_from_genre(genre):
     return resp
 
 def get_stocks(username):
-    return data_query(f'''SELECT stocks FROM User WHERE username = "{username}"''', fetchall = True)[0].split(",")
+    stocks = data_query(f'''SELECT stocks FROM User WHERE username = "{username}"''', fetchall = True)
+    if stocks != []:
+        return stocks[0].split(",")
+    return []
 
 def add_stock(user, stock):
     user_stocks = f"{get_stocks(user)},{stock}"
     data_query("UPDATE User SET stocks = ? WHERE username = ?", (user_stocks, user))
+    return 1
     
 add_account("soft", "dev")
 
 if __name__ == "__main__":
-    reset_articles()
-    add_all_genres()
+    pass
+    #reset_articles()
+    #add_all_genres()
     # print(get_from_genre("Science"))

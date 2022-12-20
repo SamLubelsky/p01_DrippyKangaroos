@@ -56,27 +56,29 @@
                     </div>
                 </nav>
 
-                <form action="/explore  " method="GET" >
+                <form method="GET" >
                     <div class="input-group searchbar">
-                        <input type="search" name="query" class="form-control form-control text-bg" style="border-radius:.5rem;" placeholder="Search..." aria-label="Search" name="search_query">
+                        <input type="search" name="query" class="form-control form-control text-bg" style="border-radius:.5rem;" placeholder="Search..." aria-label="Search">
 
                         <div class="input-group-append" style="margin-right:1rem; margin-left:.5rem;">
-                            <button type="submit" class="btn btn-primary search-button" style="color:white;">Search...</button>
+                        <button type="button" class="btn btn-primary search-button" style="color:white;">Search...</button>
+                        
                         <!-- <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="sr-only">Toggle Dropdown</span>
-                        </button> -->
+                        </button>
 
-                        <!--<div class="dropdown-menu" style="padding:.5rem;">
+                        <div class="dropdown-menu" style="padding:.5rem;">
                             <a class="dropdown-item" href="#">Action</a>
                             <a class="dropdown-item" href="#">Another action</a>
                             <a class="dropdown-item" href="#">Something else here</a>
                             <div role="separator" class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#">Separated link</a>
-                        </div> -->
                         </div>
+                        </div> -->
                     </div>
                 </form>
             </div>
+            <h2>{{text}}</h2>
             {% for article in articles %}
             <div class="card">
                 <div class="card-body card-scroll">

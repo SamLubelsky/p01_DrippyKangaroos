@@ -17,13 +17,14 @@ genres = ["Business", "Entertainment", "General", "Health", "Science", "Sports",
 stocks = []
 
 def read_stocks():
+    temp = []
     with open('S&P_500_companies.csv', newline='') as csvfile:
         spamreader = csv.reader(csvfile, quotechar='|')
         for row in spamreader:
-            stocks.append(row)
+            temp.append(row)
+    stocks = temp
 
 read_stocks()
-print(stocks)
 
 cur_date = str(date.today())
 if db_builder.new_day(cur_date):
@@ -76,32 +77,25 @@ def logout():
 @app.route("/home", methods=['GET', 'POST'])
 def home():
     if (verify_session()):
-        username = request.form.get('username')
+        username = session['username']
         weather_data = weatherapi.get_weather_data()
         articles = db_builder.get_from_genre("General")
-<<<<<<< HEAD
-        stocks = db_builder.get_stocks(username)
-        stocks_with_price = []
-        for stock in stocks:
-            print("stock: " + stock)
-            stocks_with_price.append([stock, stockapi.get_price(stock)])
-        return render_template("home.html", articles=articles, genres=genres, weather=weather_data, stocks=stocks_with_price)
-=======
-        #print(username)
         # stocks = db_builder.get_stocks(username)
         return render_template("home.html", articles=articles, genres=genres, weather=weather_data, stocks=stocks)
->>>>>>> 58708c98cb791524bd22ebb7d7bb32fd10def941
     else:
         return render_template("error.html", msg="session could not be verifited")
 
 @app.route("/explore")
 def explore():
     query = request.args.get("query")
-    articles = []
-    if query is not None:
-        articles = newsapi.request_articles(query, 5)
     if(verify_session()):
-        return render_template("explore.html", genres=genres, articles = articles)
+        articles = []
+        default_text = ""
+        if query is not None:
+            articles = newsapi.request_articles(query, 5)
+            if len(articles) == 0:
+                default_text = f"No articles could be found for the search term {query}"
+        return render_template("explore.html", genres=genres, articles = articles, text = default_text)
     else:
         return render_template("error.html", msg="Session could not be verifited")  
 
@@ -109,7 +103,7 @@ def explore():
 def topic():
     if(verify_session()):
         weather_data = weatherapi.get_weather_data()
-        topic = request.args.get("topic")
+        topic = request.form.get("topic")
         articles = db_builder.get_from_genre(topic)
         return render_template("topic.html", articles=articles, topic=topic, genres=genres, weather = weather_data)
     else:
@@ -122,10 +116,10 @@ def about():
     else:
         return render_template("error.html", msg="session could not be verifited")
 
-@app.route("/profile", methods=['GET', 'POST'])
+@app.route("/profile")
 def profile():
     if(verify_session()):
-        return render_template("profile.html", username=session['username'], genres=genres)#, articles = articles) 
+        return render_template("profile.html", username=session['username'], genres=genres, stocks=stocks)
     else:
         return render_template("error.html", msg="session could not be verifited")
         
