@@ -16,14 +16,16 @@ genres = ["Business", "Entertainment", "General", "Health", "Science", "Sports",
 
 stocks = []
 
-def read_stocks():
+def read_stocks(local_list):
     with open('S&P_500_companies.csv', newline='') as csvfile:
         spamreader = csv.reader(csvfile, quotechar='|')
         for row in spamreader:
-            stocks.append(row)
+            local_list.append(row)
+    # print(local_list)
+    local_list=local_list[2:]
+    return local_list
 
-#read_stocks()
-#print(stocks)
+stocks = read_stocks(stocks)
 
 cur_date = str(date.today())
 if db_builder.new_day(cur_date):
@@ -79,8 +81,25 @@ def home():
         username = session['username']
         weather_data = weatherapi.get_weather_data()
         articles = db_builder.get_from_genre("General")
-        stocks = get_stocks(username)
-        return render_template("home.html", articles=articles, genres=genres, weather=weather_data, stocks=stocks)
+        # Sam's code:
+        # stocks = db_builder.get_stocks(username)
+        # print("stocks: " + str(stocks))
+        # stocks_with_price = []
+        # for stock in stocks:
+        #     print("stock: " + stock)
+        #     stocks_with_price.append([stock, stockapi.get_price(stock)])
+        # return render_template("home.html", articles=articles, genres=genres, weather=weather_data, stocks=stocks_with_price)
+        if 'stock_choice' in session:
+            stocks = [[session['stock_choice'], stockapi.get_price(session['stock_choice'])]]
+        else:
+            stocks = [["aapl", stockapi.get_price("aapl")], ["tsla", stockapi.get_price("tsla")], ["googl", stockapi.get_price("googl")], ["amzn", stockapi.get_price("amzn")], ["meta", stockapi.get_price("meta")]]
+
+        print(f"stocks: {stocks}")
+        #print(username)
+        # stocks = db_builder.get_stocks(username)
+        # for stock in stocks:
+        #     stock.append(stockapi.get_price(stock[0]))
+        return render_template("home.html", articles=articles, genres=genres, weather=weather_data, stocks=stocks)#stocks=stocks)
     else:
         return render_template("error.html", msg="session could not be verifited")
 
@@ -117,7 +136,11 @@ def about():
 @app.route("/profile", methods=['GET', 'POST'])
 def profile():
     if(verify_session()):
-        return render_template("profile.html", username=session['username'], genres=genres)#, articles = articles) 
+        username = session['username']
+        if request.method == 'POST':
+            session['stock_choice'] = request.form.get('stocks')
+        # db_builder.add_stock(username, stock_choice)
+        return render_template("profile.html", username=session['username'], genres=genres, stocks=stocks)
     else:
         return render_template("error.html", msg="session could not be verifited")
         
