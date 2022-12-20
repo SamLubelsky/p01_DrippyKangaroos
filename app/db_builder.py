@@ -5,7 +5,6 @@ users = ("(username TEXT, password TEXT, stocks TEXT)")
 article = (
     "(title TEXT, url TEXT, imageUrl TEXT, summary TEXT, genre TEXT, source TEXT)")
 
-
 def data_query(table, info=None, fetchall=False):
     db = sqlite3.connect("database.db")
     c = db.cursor()
