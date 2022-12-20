@@ -22,8 +22,8 @@ def read_stocks():
         for row in spamreader:
             stocks.append(row)
 
-read_stocks()
-print(stocks)
+#read_stocks()
+#print(stocks)
 
 cur_date = str(date.today())
 if db_builder.new_day(cur_date):
@@ -76,10 +76,11 @@ def logout():
 @app.route("/home", methods=['GET', 'POST'])
 def home():
     if (verify_session()):
-        username = request.form.get('username')
+        username = session['username']
         weather_data = weatherapi.get_weather_data()
         articles = db_builder.get_from_genre("General")
         stocks = db_builder.get_stocks(username)
+        print("stocks: " + str(stocks))
         stocks_with_price = []
         for stock in stocks:
             print("stock: " + stock)
