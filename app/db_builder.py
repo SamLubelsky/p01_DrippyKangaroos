@@ -138,7 +138,10 @@ def get_from_genre(genre):
     return resp
 
 def get_stocks(username):
-    return data_query(f'''SELECT stocks FROM User WHERE username = "{username}"''', fetchall = True)[0].split(",")
+    stocks = data_query(f'''SELECT stocks FROM User WHERE username = "{username}"''', fetchall = True)
+    if stocks != []:
+        return stocks[0].split(",")
+    return []
 
 def add_stock(user, stock):
     user_stocks = f"{get_stocks(user)},{stock}"
