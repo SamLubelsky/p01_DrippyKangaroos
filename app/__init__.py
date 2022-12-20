@@ -25,10 +25,6 @@ def read_stocks():
     stocks = temp
 
 read_stocks()
-<<<<<<< HEAD
-=======
-# print(stocks)
->>>>>>> adf97df6a3d88b61c6bf4ca5ff4bf324ebbc6def
 
 cur_date = str(date.today())
 if db_builder.new_day(cur_date):
@@ -84,12 +80,7 @@ def home():
         username = session['username']
         weather_data = weatherapi.get_weather_data()
         articles = db_builder.get_from_genre("General")
-<<<<<<< HEAD
         # stocks = db_builder.get_stocks(username)
-=======
-        #stocks = db_builder.get_stocks(username)
-        stocks = ""
->>>>>>> adf97df6a3d88b61c6bf4ca5ff4bf324ebbc6def
         return render_template("home.html", articles=articles, genres=genres, weather=weather_data, stocks=stocks)
     else:
         return render_template("error.html", msg="session could not be verifited")
