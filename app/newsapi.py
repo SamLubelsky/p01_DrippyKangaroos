@@ -1,6 +1,6 @@
 from urllib.request import urlopen
 import json
-
+import requests
 startpoint = "https://newsapi.org/v2"
 api_key = ""
 with open("keys/key_newsapi.txt", 'r') as k:
@@ -9,6 +9,12 @@ with open("keys/key_newsapi.txt", 'r') as k:
 
 def request_articles(query, n=1):
     url = f"{startpoint}/everything?q={query}&language=en&apiKey={api_key}"
+    # req = requests.get(startpoint + "/everything", params = {
+    #     'q': query,
+    #     'language': 'en',
+    #     'apiKey': api_key
+    # })
+    # return req.content
     return request(url, n)
 
 

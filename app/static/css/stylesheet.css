@@ -6,7 +6,9 @@ h3 {
     padding: 1vw;
     padding-bottom: 0vw;
 }
-
+h6{
+    font-size:40px;
+}
 .pad {
     padding: .5rem;
 }

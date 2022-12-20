@@ -78,9 +78,17 @@ def logout():
 @app.route("/home", methods=['GET', 'POST'])
 def home():
     if (verify_session()):
-        username = request.form.get('username')
+        username = session['username']
         weather_data = weatherapi.get_weather_data()
         articles = db_builder.get_from_genre("General")
+        # Sam's code:
+        # stocks = db_builder.get_stocks(username)
+        # print("stocks: " + str(stocks))
+        # stocks_with_price = []
+        # for stock in stocks:
+        #     print("stock: " + stock)
+        #     stocks_with_price.append([stock, stockapi.get_price(stock)])
+        # return render_template("home.html", articles=articles, genres=genres, weather=weather_data, stocks=stocks_with_price)
         if 'stock_choice' in session:
             stocks = [[session['stock_choice'], stockapi.get_price(session['stock_choice'])]]
         else:
