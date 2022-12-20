@@ -88,9 +88,16 @@
                                     <h5 class="card-title">Stocks</h5>
                                     <a href="/profile" style="color: grey;"><p class="card-subtitle">Edit</p></a>
                                     {% for stock in stocks %}
-                                        <h6 class="card-subtitle mb-2 text-muted">{{stock_name}}</h6>
-                                        <p class="card-text card-summary">Current price: {{stock_price}}</p>
-                                        <a href="{{reference_link}}" target="_blank" class="card-link btn btn-primary" role="button">Visit</a>
+                                    <!-- <a href="{{reference_link}}" target="_blank" class="btn" role="button" style="outline: 0px;"> -->
+                                    <a href="{{stock[2]}}" class="btn" style="color: black">
+                                        <div class="card" style="border-radius: .5rem; border: 1px solid lightgrey; min-height:2.5rem; width: auto; margin: .5rem; padding: .5rem; padding-bottom: .5rem; positon: absolute; left: -1rem;">
+                                            <div class="" style="margin: 0rem; padding: 0rem;">
+                                                <h5 class="card-subtitle" style="margin: 0rem; padding: 0rem; font-size: 14px; color: green; padding-left: 0rem; display: inline-block; padding-right: .5rem;">${{stock[0].upper()}}</h5> 
+                                                <h5 class="card-subtitle" style="margin: 0rem; padding: 0rem; font-size: 14px; display: inline-block; padding-right: 0rem;">${{stock[1]}}</h5>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <!-- </a> -->
                                     {% endfor %}
                                 </div>
                             </div>
