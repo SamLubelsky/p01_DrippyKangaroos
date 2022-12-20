@@ -76,9 +76,10 @@ def logout():
 @app.route("/home", methods=['GET', 'POST'])
 def home():
     if (verify_session()):
-        username = session['username']
+        username = request.form.get('username')
         weather_data = weatherapi.get_weather_data()
         articles = db_builder.get_from_genre("General")
+        #print(username)
         stocks = db_builder.get_stocks(username)
         return render_template("home.html", articles=articles, genres=genres, weather=weather_data, stocks=stocks)
     else:
@@ -86,15 +87,12 @@ def home():
 
 @app.route("/explore")
 def explore():
+    query = request.args.get("query")
+    articles = []
+    if query is not None:
+        articles = newsapi.request_articles(query, 5)
     if(verify_session()):
-        query = request.args.get("query")
-        articles = []
-        default_text = ""
-        if query is not None:
-            articles = newsapi.request_articles(query, 5)
-            if len(articles) == 0:
-                default_text = f"No articles could be found for the search term {query}"
-        return render_template("explore.html", genres=genres, articles = articles, text = default_text)
+        return render_template("explore.html", genres=genres, articles = articles)
     else:
         return render_template("error.html", msg="Session could not be verifited")  
 @app.route("/topic")

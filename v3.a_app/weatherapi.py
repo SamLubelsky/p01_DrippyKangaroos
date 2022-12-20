@@ -28,8 +28,8 @@ def get_weather_data(lat=nylat, lon=nylon):
             'high': temp_max,
             'img_url': iconUrl,
             'type': weather_info["weather"][0]["main"],
-            'temp': round(kelvin_to_fahrenheit(weather_info["main"]["temp"]), 1),
-            'feels_like': round(kelvin_to_fahrenheit(weather_info["main"]["feels_like"]), 1),
+            'temp': weather_info["main"]["temp"],
+            'feels_like': weather_info["main"]["feels_like"],
             'name': weather_info["name"]}
 # print(getweatherdata())
 # response = requests.get(endpoint,
