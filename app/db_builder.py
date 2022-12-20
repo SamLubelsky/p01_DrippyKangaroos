@@ -53,13 +53,8 @@ def verify(username, password):
     accounts = get_table_list("User")
     for account in accounts:
         if account[0] == username and account[1] == password:
-            return "verified"
-        if account[0] == username:
-            user = True
-    if not user:
-        return "Username does not exist"
-    if user:
-        return "Password is not correct"
+            return True
+    return False
 
 
 def exists(name, table):
