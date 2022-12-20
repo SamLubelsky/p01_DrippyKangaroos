@@ -53,13 +53,8 @@ def verify(username, password):
     accounts = get_table_list("User")
     for account in accounts:
         if account[0] == username and account[1] == password:
-            return "verified"
-        if account[0] == username:
-            user = True
-    if not user:
-        return "Username does not exist"
-    if user:
-        return "Password is not correct"
+            return True
+    return False
 
 
 def exists(name, table):
@@ -147,11 +142,16 @@ def get_stocks(username):
 
 def add_stock(user, stock):
     user_stocks = f"{get_stocks(user)},{stock}"
-    data_query("UPDATE User SET stocks = ? WHERE username = ?", (user_stocks, user))
-    
-add_account("soft", "dev")
+    data_query('''UPDATE User 
+                 SET 
+                 stocks = ? 
+                 WHERE 
+                 username = ?''', (user_stocks, user))
+
+#add_account("soft", "dev")
 
 if __name__ == "__main__":
-    reset_articles()
-    add_all_genres()
+    pass
+    #reset_articles()
+    #add_all_genres()
     # print(get_from_genre("Science"))
