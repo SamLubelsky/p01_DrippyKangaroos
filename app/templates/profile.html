@@ -29,7 +29,7 @@
                                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Topics</a>
                                     <form action="/topic">
                                         <div class="dropdown-menu">
-                                            {% for genre in genres%}
+                                            {% for genre in genres %}
                                             <input name="topic" value="{{genre}}" type="submit" class="dropdown-item" id="{{genre.lower()}}">
                                             {% endfor %}
                                         </div>
@@ -56,14 +56,49 @@
                     </div>
                 </nav>
 
-                <form action="/create_account" method="POST">
+                <!-- <form method="POST">
                     <label for="stocks">Select the stocks you'd like to track:</label>
-                    <select name="stocks" id="stocks">
-                        {{% for stock in stocks %}}
-                        <option value="{{stock[0].lower()}}">{{stock[0]}}: {{stock[1]}}</option>
-                        {{% endfor %}}
+                    <select name="stocks[]" id="stocks" multiple="multiple">
+                        {% for stock in stocks %}
+                        <option value="{{stock[0].lower()}}" type="checkbox">{{stock[0]}}: {{stock[1]}}</option>
+                        {% endfor %}
                     </select>
-                    <button type="submit" name="save_stocks_button" class="btn btn-info">Submit</button>
+                    <button type="submit" name="save_stocks_button" class="btn btn-primary">Submit</button>
+                    
+                </form> -->
+                <!-- <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+                    data-mdb-toggle="dropdown" aria-expanded="false">
+                    Checkbox dropdown
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <li>
+                            <a class="dropdown-item" href="#">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="Checkme1" />
+                                    <label class="form-check-label" for="Checkme1">Check me</label>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div> -->
+
+                <button href="#" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">Select Stocks</button>
+                <form action="/topic">
+                    <div class="dropdown-menu">
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        {% for stock in stocks %}
+                        <li>
+                            <a class="dropdown-item" href="#">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="Checkme1" />
+                                    <label class="form-check-label" for="Checkme1">Check me</label>
+                                </div>
+                            </a>
+                        </li>
+                        {% endfor %}
+                        </ul>
+                    </div>
                 </form>
 
                 <h3>Username: {{username}}</h3>

@@ -148,6 +148,7 @@ def get_stocks(username):
 def add_stock(user, stock):
     user_stocks = f"{get_stocks(user)},{stock}"
     data_query("UPDATE User SET stocks = ? WHERE username = ?", (user_stocks, user))
+    return 1
     
 add_account("soft", "dev")
 

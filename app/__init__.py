@@ -23,7 +23,6 @@ def read_stocks():
             stocks.append(row)
 
 read_stocks()
-print(stocks)
 
 cur_date = str(date.today())
 if db_builder.new_day(cur_date):
@@ -79,15 +78,15 @@ def home():
         username = session['username']
         weather_data = weatherapi.get_weather_data()
         articles = db_builder.get_from_genre("General")
-        stocks = db_builder.get_stocks(username)
+        # stocks = db_builder.get_stocks(username)
         return render_template("home.html", articles=articles, genres=genres, weather=weather_data, stocks=stocks)
     else:
         return render_template("error.html", msg="session could not be verifited")
 
 @app.route("/explore")
 def explore():
+    query = request.args.get("query")
     if(verify_session()):
-        query = request.args.get("query")
         articles = []
         default_text = ""
         if query is not None:
@@ -97,6 +96,7 @@ def explore():
         return render_template("explore.html", genres=genres, articles = articles, text = default_text)
     else:
         return render_template("error.html", msg="Session could not be verifited")  
+
 @app.route("/topic")
 def topic():
     if(verify_session()):
@@ -117,7 +117,7 @@ def about():
 @app.route("/profile")
 def profile():
     if(verify_session()):
-        return render_template("profile.html", username=session['username'], genres=genres)#, articles = articles) 
+        return render_template("profile.html", username=session['username'], genres=genres, stocks=stocks)
     else:
         return render_template("error.html", msg="session could not be verifited")
         
