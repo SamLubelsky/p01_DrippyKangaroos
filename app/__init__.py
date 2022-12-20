@@ -79,18 +79,12 @@ def home():
         username = request.form.get('username')
         weather_data = weatherapi.get_weather_data()
         articles = db_builder.get_from_genre("General")
-<<<<<<< HEAD
         stocks = db_builder.get_stocks(username)
         stocks_with_price = []
         for stock in stocks:
             print("stock: " + stock)
             stocks_with_price.append([stock, stockapi.get_price(stock)])
         return render_template("home.html", articles=articles, genres=genres, weather=weather_data, stocks=stocks_with_price)
-=======
-        #print(username)
-        # stocks = db_builder.get_stocks(username)
-        return render_template("home.html", articles=articles, genres=genres, weather=weather_data, stocks=stocks)
->>>>>>> 58708c98cb791524bd22ebb7d7bb32fd10def941
     else:
         return render_template("error.html", msg="session could not be verifited")
 
