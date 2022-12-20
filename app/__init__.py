@@ -17,13 +17,15 @@ genres = ["Business", "Entertainment", "General", "Health", "Science", "Sports",
 stocks = []
 
 def read_stocks():
+    temp = []
     with open('S&P_500_companies.csv', newline='') as csvfile:
         spamreader = csv.reader(csvfile, quotechar='|')
         for row in spamreader:
-            stocks.append(row)
+            temp.append(row)
+    stocks = temp
 
 read_stocks()
-print(stocks)
+# print(stocks)
 
 cur_date = str(date.today())
 if db_builder.new_day(cur_date):
