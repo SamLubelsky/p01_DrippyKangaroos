@@ -62,7 +62,7 @@
                             {% for article in articles %}
                             <div class="card">
                                 <div class="card-body card-scroll">
-                                    {% if article[2] != "None" %}
+                                    {% if article[2] is not none %}
                                     <img src={{article[2]}} class="card-img">
                                     {% endif %}
                                     <h5 class="card-title">{{article[0]}}</h5>
@@ -79,17 +79,18 @@
                                     <h5 class="card-title">Weather</h5>
                                     <img src={{weather['img_url']}} width = "100" height = "100">
                                     <h6 class="card-subtitle mb-2 text-muted">{{weather['type']}}, {{weather['name']}}</h6>
-                                    <p class="card-text card-summary">Low: {{weather['low']}}°F High: {{weather['high']}}°F</p>
+                                    <p class="card-text card-summary">Temp: {{weather['temp']}}°F, Feels Like: {{weather['feels_like']}}°F
+                                    <br>Low: {{weather['low']}}°F, High: {{weather['high']}}°F</p>
                                     <a href="{{reference_link}}" target="_blank" class="card-link btn btn-primary" role="button">Visit</a>
                                 </div>
                             </div>
                             <div class="card stocks-card">
                                 <div class="card-body card-scroll">
                                     <h5 class="card-title">Stocks</h5>
-                                    <a href="/profile" style="color: grey;"><p class="card-subtitle">Edit</p></a>
                                     {% for stock in stocks %}
-                                        <h6 class="card-subtitle mb-2 text-muted font-size: 40px">{{stock[0]}}, Current Price: {{stock[1]}}</h6>
+                                        <h6 class="card-subtitle mb-2 text-muted" style="font-size:12px">{{stock[0]}}, Current Price: {{stock[1]}}</h6>
                                     {% endfor %}
+                                    <a href="/profile" style="color: grey; position: absolute; bottom: 0; left:5px"><p class="card-subtitle" style="font-size:13px">Edit</p></a>
                                 </div>
                             </div>
                         </div>
