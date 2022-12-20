@@ -86,12 +86,15 @@ def home():
 
 @app.route("/explore")
 def explore():
-    query = request.args.get("query")
-    articles = []
-    if query is not None:
-        articles = newsapi.request_articles(query, 5)
     if(verify_session()):
-        return render_template("explore.html", genres=genres, articles = articles)
+        query = request.args.get("query")
+        articles = []
+        default_text = ""
+        if query is not None:
+            articles = newsapi.request_articles(query, 5)
+            if len(articles) == 0:
+                default_text = f"No articles could be found for the search term {query}"
+        return render_template("explore.html", genres=genres, articles = articles, text = default_text)
     else:
         return render_template("error.html", msg="Session could not be verifited")  
 @app.route("/topic")
