@@ -8,6 +8,8 @@ with open("keys/key_newsapi.txt", 'r') as k:
 
 
 def request_articles(query, n=1):
+    if len(query.split(' ')) > 1:
+        query = "%20".join(query.split(' '))
     url = f"{startpoint}/everything?q={query}&language=en&apiKey={api_key}"
     # req = requests.get(startpoint + "/everything", params = {
     #     'q': query,
