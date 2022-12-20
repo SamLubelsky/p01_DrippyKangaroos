@@ -108,7 +108,7 @@ def explore():
     query = request.args.get("query")
     articles = []
     if query is not None:
-        articles = newsapi.request_articles(query, 5)
+        articles = newsapi.request_articles(query, 15)
     if(verify_session()):
         return render_template("explore.html", genres=genres, articles = articles)
     else:
