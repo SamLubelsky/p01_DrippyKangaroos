@@ -95,6 +95,7 @@ def explore():
         return render_template("explore.html", genres=genres, articles = articles)
     else:
         return render_template("error.html", msg="Session could not be verifited")  
+
 @app.route("/topic")
 def topic():
     if(verify_session()):
@@ -112,7 +113,7 @@ def about():
     else:
         return render_template("error.html", msg="session could not be verifited")
 
-@app.route("/profile")
+@app.route("/profile", methods=['GET', 'POST'])
 def profile():
     if(verify_session()):
         return render_template("profile.html", username=session['username'], genres=genres)#, articles = articles) 
