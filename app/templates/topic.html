@@ -19,13 +19,13 @@
                         <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
                             <ul class="navbar-nav me-auto">
                                 <li class="nav-item">
-                                    <a class="nav-link active" href="/home">Home</a>
+                                    <a class="nav-link" href="/home">Home</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="/explore">Explore</a>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Topics</a>
+                                    <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">{{topic}}</a>
                                     <form action="/topic">
                                         <div class="dropdown-menu">
                                             {% for genre in genres%}
