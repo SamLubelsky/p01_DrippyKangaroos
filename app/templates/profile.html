@@ -58,9 +58,15 @@
 
                 <!-- <form method="POST">
                     <label for="stocks">Select the stocks you'd like to track:</label>
+<<<<<<< HEAD
                     <select name="stocks[]" id="stocks" multiple="multiple">
                         {% for stock in stocks %}
                         <option value="{{stock[0].lower()}}" type="checkbox">{{stock[0]}}: {{stock[1]}}</option>
+=======
+                    <select name="stocks" id="stocks">
+                        {% for stock in stocks %}
+                        <option value="{{stock[0].lower()}}">{{stock[0]}}: {{stock[1]}}</option>
+>>>>>>> adf97df6a3d88b61c6bf4ca5ff4bf324ebbc6def
                         {% endfor %}
                     </select>
                     <button type="submit" name="save_stocks_button" class="btn btn-primary">Submit</button>
