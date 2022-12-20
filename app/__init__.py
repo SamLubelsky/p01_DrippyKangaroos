@@ -79,13 +79,8 @@ def home():
         username = session['username']
         weather_data = weatherapi.get_weather_data()
         articles = db_builder.get_from_genre("General")
-        stocks = db_builder.get_stocks(username)
-        print("stocks: " + str(stocks))
-        stocks_with_price = []
-        for stock in stocks:
-            print("stock: " + stock)
-            stocks_with_price.append([stock, stockapi.get_price(stock)])
-        return render_template("home.html", articles=articles, genres=genres, weather=weather_data, stocks=stocks_with_price)
+        stocks = get_stocks(username)
+        return render_template("home.html", articles=articles, genres=genres, weather=weather_data, stocks=stocks)
     else:
         return render_template("error.html", msg="session could not be verifited")
 
@@ -103,10 +98,12 @@ def explore():
 @app.route("/topic")
 def topic():
     if(verify_session()):
+        username = session['username']
         weather_data = weatherapi.get_weather_data()
         topic = request.args.get("topic")
         articles = db_builder.get_from_genre(topic)
-        return render_template("topic.html", articles=articles, topic=topic, genres=genres, weather = weather_data)
+        stocks = get_stocks(username)
+        return render_template("topic.html", articles=articles, topic=topic, genres=genres, weather = weather_data, stocks = stocks)
     else:
         return render_template("error.html", msg="session could not be verifited")
 
@@ -129,7 +126,12 @@ def verify_session():
         if db_builder.verify(session['username'], session['password']):
             return True
     return False
-
+def get_stocks(username):
+    stocks = db_builder.get_stocks(username)
+    stocks_with_price = []
+    for stock in stocks:
+        stocks_with_price.append([stock, stockapi.get_price(stock)])
+    return stocks_with_price
 if __name__ == "__main__":
     app.debug = True
     app.run()
