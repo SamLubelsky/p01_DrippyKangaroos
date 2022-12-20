@@ -5,11 +5,13 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta charset="utf-8"> -->
         <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
-        <title>Home</title>
+        <title>About</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-        <link rel="stylesheet" href="static/css/stylesheet.css">
+        <link rel="stylesheet" href="/static/css/stylesheet.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+        
     </head>
     <body>
         <div class="page-container">
@@ -19,7 +21,7 @@
                         <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
                             <ul class="navbar-nav me-auto">
                                 <li class="nav-item">
-                                    <a class="nav-link active" href="/home">Home</a>
+                                    <a class="nav-link" href="/home">Home</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="/explore">Explore</a>
@@ -37,7 +39,7 @@
                             </ul>
                         </div>
                         <div class="mx-auto order-0" style="padding-left:1.5rem; padding-right:1.5rem;">
-                            <a class="navbar-brand mx-auto" href="/">Newsify</a>
+                            <a class="navbar-brand mx-auto" href="/home">Newsify</a>
                             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".dual-collapse2">
                                 <span class="navbar-toggler-icon"></span>
                             </button>
@@ -45,7 +47,7 @@
                         <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
                             <ul class="navbar-nav ms-auto">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/about">About</a>
+                                    <a class="nav-link active" href="/about">About</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="/profile">Profile</a>
@@ -54,49 +56,6 @@
                         </div>
                     </div>
                 </nav>
-
-                <div class="home-content">
-                    <div class="home-row d-flex">
-                        <div class="home-articles">
-                            <h3>Articles of The Day</h3>
-                            {% for article in articles %}
-                            <div class="card">
-                                <div class="card-body card-scroll">
-                                    {% if article[2] != "None" %}
-                                    <img src={{article[2]}} class="card-img">
-                                    {% endif %}
-                                    <h5 class="card-title">{{article[0]}}</h5>
-                                    <h6 class="card-subtitle mb-2 text-muted">{{article[-1]}}</h6>   
-                                    <a href="{{article[1]}}" target="_blank" class="card-link btn btn-primary" role="button">Visit</a>
-                                </div>
-                            </div>
-                            {% endfor %}
-                        </div>
-                        <div class="home-widgets">
-                            <h3>Quick Look at Today</h3>
-                            <div class="card weather-card">
-                                <div class="card-body card-scroll">
-                                    <h5 class="card-title">Weather</h5>
-                                    <img src={{weather['img_url']}} width = "100" height = "100">
-                                    <h6 class="card-subtitle mb-2 text-muted">{{weather['type']}}, {{weather['name']}}</h6>
-                                    <p class="card-text card-summary">Low: {{weather['low']}}°F High: {{weather['high']}}°F</p>
-                                    <a href="{{reference_link}}" target="_blank" class="card-link btn btn-primary" role="button">Visit</a>
-                                </div>
-                            </div>
-                            <div class="card stocks-card">
-                                <div class="card-body card-scroll">
-                                    <h5 class="card-title">Stocks</h5>
-                                    <a href="/profile" style="color: grey;"><p class="card-subtitle">Edit</p></a>
-                                    {% for stock in stocks %}
-                                        <h6 class="card-subtitle mb-2 text-muted">{{stock_name}}</h6>
-                                        <p class="card-text card-summary">Current price: {{stock_price}}</p>
-                                        <a href="{{reference_link}}" target="_blank" class="card-link btn btn-primary" role="button">Visit</a>
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
 
             <footer>

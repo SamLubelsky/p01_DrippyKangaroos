@@ -28,7 +28,7 @@
                                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Topics</a>
                                     <form action="/topic">
                                         <div class="dropdown-menu">
-                                            {% for genre in genres%}
+                                            {% for genre in genres %}
                                             <input name="topic" value="{{genre}}" type="submit" class="dropdown-item" id="{{genre.lower()}}">
                                             {% endfor %}
                                         </div>
@@ -62,7 +62,7 @@
                             {% for article in articles %}
                             <div class="card">
                                 <div class="card-body card-scroll">
-                                    {% if article[2] != "None" %}
+                                    {% if article[2] is not none %}
                                     <img src={{article[2]}} class="card-img">
                                     {% endif %}
                                     <h5 class="card-title">{{article[0]}}</h5>
@@ -79,7 +79,8 @@
                                     <h5 class="card-title">Weather</h5>
                                     <img src={{weather['img_url']}} width = "100" height = "100">
                                     <h6 class="card-subtitle mb-2 text-muted">{{weather['type']}}, {{weather['name']}}</h6>
-                                    <p class="card-text card-summary">Low: {{weather['low']}}°F High: {{weather['high']}}°F</p>
+                                    <p class="card-text card-summary">Temp: {{weather['temp']}}°F, Feels Like: {{weather['feels_like']}}°F
+                                    <br>Low: {{weather['low']}}°F, High: {{weather['high']}}°F</p>
                                     <a href="{{reference_link}}" target="_blank" class="card-link btn btn-primary" role="button">Visit</a>
                                 </div>
                             </div>

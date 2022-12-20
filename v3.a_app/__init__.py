@@ -80,7 +80,7 @@ def home():
         weather_data = weatherapi.get_weather_data()
         articles = db_builder.get_from_genre("General")
         #print(username)
-        stocks = db_builder.get_stocks(username)
+        # stocks = db_builder.get_stocks(username)
         return render_template("home.html", articles=articles, genres=genres, weather=weather_data, stocks=stocks)
     else:
         return render_template("error.html", msg="session could not be verifited")
