@@ -72,30 +72,6 @@
                             </div>
                             {% endfor %}
                         </div>
-                        <div class="home-widgets">
-                            <h3>Quick Look at Today</h3>
-                            <div class="card weather-card">
-                                <div class="card-body card-scroll">
-                                    <h5 class="card-title">Weather</h5>
-                                    <img src={{weather['img_url']}} width = "100" height = "100">
-                                    <h6 class="card-subtitle mb-2 text-muted">{{weather['type']}}, {{weather['name']}}</h6>
-                                    <p class="card-text card-summary">Temp: {{weather['temp']}}°F, Feels Like: {{weather['feels_like']}}°F
-                                    <br>Low: {{weather['low']}}°F, High: {{weather['high']}}°F</p>
-                                    <a href="{{reference_link}}" target="_blank" class="card-link btn btn-primary" role="button">Visit</a>
-                                </div>
-                            </div>
-                            <div class="card stocks-card">
-                                <div class="card-body card-scroll">
-                                    <h5 class="card-title">Stocks</h5>
-                                    <a href="/profile" style="color: grey;"><p class="card-subtitle">Edit</p></a>
-                                    {% for stock in stocks %}
-                                        <h6 class="card-subtitle mb-2 text-muted">{{stock_name}}</h6>
-                                        <p class="card-text card-summary">Current price: {{stock_price}}</p>
-                                        <a href="{{reference_link}}" target="_blank" class="card-link btn btn-primary" role="button">Visit</a>
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>

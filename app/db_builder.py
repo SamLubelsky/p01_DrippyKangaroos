@@ -40,7 +40,7 @@ def get_table_list(name):
 
 def add_account(username, password):
     if not(exists(username, "User")):
-        default_stocks = "AAPL,MSFT,AMZN,TSLA,GOOGL,GOOG,NVDA,BRK.B,META,UNH"
+        default_stocks = "AAPL,MSFT,AMZN,TSLA,GOOGL,GOOG,NVDA,META,UNH"
         data_query("INSERT INTO User VALUES (?, ?, ?)", (username, password, default_stocks))
         #print(data_query(f'''SELECT * FROM User WHERE username = "{username}"''', fetchall = True))
     else:
