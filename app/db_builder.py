@@ -39,11 +39,10 @@ def get_table_list(name):
 
 
 def add_account(username, password):
-    if username == None or username == "" or password == None or password == "":
-        return -2
-    if not (exists(username, "User")):
-        data_query("INSERT INTO User VALUES (?, ?, ?)", (username, password, "AAPL"))
-        print(data_query(f'''SELECT * FROM User WHERE username = "{username}"''', fetchall = True))
+    if not(exists(username, "User")):
+        default_stocks = "AAPL,MSFT,AMZN,TSLA,GOOGL,GOOG,NVDA,BRK.B,META,UNH"
+        data_query("INSERT INTO User VALUES (?, ?, ?)", (username, password, default_stocks))
+        #print(data_query(f'''SELECT * FROM User WHERE username = "{username}"''', fetchall = True))
     else:
         return -1
 
@@ -139,8 +138,9 @@ def get_from_genre(genre):
 
 def get_stocks(username):
     stocks = data_query(f'''SELECT stocks FROM User WHERE username = "{username}"''', fetchall = True)
-    if stocks != []:
-        return stocks[0].split(",")
+    print("stocks: " + str(stocks))
+    if len(stocks) > 0:
+        return stocks[0][0].split(",")
     return []
 
 def add_stock(user, stock):
@@ -155,6 +155,6 @@ def add_stock(user, stock):
 
 if __name__ == "__main__":
     pass
-    #reset_articles()
-    #add_all_genres()
+    reset_articles()
+    add_all_genres()
     # print(get_from_genre("Science"))
