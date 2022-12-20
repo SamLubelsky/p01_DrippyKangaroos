@@ -94,7 +94,7 @@ def home():
         else:
             stocks = [["aapl", stockapi.get_price("aapl")], ["tsla", stockapi.get_price("tsla")], ["googl", stockapi.get_price("googl")], ["amzn", stockapi.get_price("amzn")], ["meta", stockapi.get_price("meta")]]
 
-        print(f"stocks: {stocks}")
+        #print(f"stocks: {stocks}")
         #print(username)
         # stocks = db_builder.get_stocks(username)
         # for stock in stocks:
@@ -121,8 +121,13 @@ def topic():
         weather_data = weatherapi.get_weather_data()
         topic = request.args.get("topic")
         articles = db_builder.get_from_genre(topic)
-        stocks = get_stocks(username)
-        return render_template("topic.html", articles=articles, topic=topic, genres=genres, weather = weather_data, stocks = stocks)
+        if 'stock_choice' in session:
+            stocks = [[session['stock_choice'], stockapi.get_price(session['stock_choice'])]]
+        else:
+            stocks = [["aapl", stockapi.get_price("aapl")], ["tsla", stockapi.get_price("tsla")], ["googl", stockapi.get_price("googl")], ["amzn", stockapi.get_price("amzn")], ["meta", stockapi.get_price("meta")]]
+
+        #stocks = # db_builder.get_stocks(username)
+        return render_template("topic.html", articles=articles, topic=topic, genres=genres, weather = weather_data, stocks=stocks)
     else:
         return render_template("error.html", msg="session could not be verifited")
 
@@ -138,9 +143,12 @@ def profile():
     if(verify_session()):
         username = session['username']
         if request.method == 'POST':
-            session['stock_choice'] = request.form.get('stocks')
-        # db_builder.add_stock(username, stock_choice)
-        return render_template("profile.html", username=session['username'], genres=genres, stocks=stocks)
+            session['stock_choice']=(request.form.get('new_stock'))
+        if 'stock_choice' in session:
+            print(session['stock_choice'])
+            db_builder.add_stock(username, session['stock_choice'])
+        print(f"get_stocks: {db_builder.get_stocks(username)}")
+        return render_template("profile.html", username=session['username'], genres=genres, stocks=stocks, user_stocks=db_builder.get_stocks(username))
     else:
         return render_template("error.html", msg="session could not be verifited")
         

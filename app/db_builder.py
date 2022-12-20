@@ -139,6 +139,7 @@ def get_from_genre(genre):
 def get_stocks(username):
     stocks = data_query(f'''SELECT stocks FROM User WHERE username = "{username}"''', fetchall = True)
     if len(stocks) > 0:
+        print(f"stocks:{stocks}")
         return stocks[0][0].split(",")
     else:
         return []
