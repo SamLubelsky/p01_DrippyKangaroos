@@ -1,7 +1,7 @@
 import sqlite3
 import newsapi
 from datetime import date
-users = ("(username TEXT, password TEXT)")
+users = ("(username TEXT, password TEXT, stocks TEXT)")
 article = (
     "(title TEXT, url TEXT, imageUrl TEXT, summary TEXT, genre TEXT, source TEXT)")
 
@@ -42,7 +42,8 @@ def add_account(username, password):
     if username == None or username == "" or password == None or password == "":
         return -2
     if not (exists(username, "User")):
-        data_query("INSERT INTO User VALUES (?, ?)", (username, password))
+        data_query("INSERT INTO User VALUES (?, ?, ?)", (username, password, "AAPL"))
+        print(data_query(f'''SELECT * FROM User WHERE username = "{username}"''', fetchall = True))
     else:
         return -1
 
@@ -142,7 +143,12 @@ def get_from_genre(genre):
     return resp
 
 def get_stocks(username):
-    return ","
+    return data_query(f'''SELECT stocks FROM User WHERE username = "{username}"''', fetchall = True)[0].split(",")
+
+def add_stock(user, stock):
+    user_stocks = f"{get_stocks(user)},{stock}"
+    data_query("UPDATE User SET stocks = ? WHERE username = ?", (user_stocks, user))
+    
 add_account("soft", "dev")
 
 if __name__ == "__main__":
