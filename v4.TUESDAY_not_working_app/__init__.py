@@ -58,10 +58,10 @@ def create_account():
         userIn = request.form.get('username')
         passIn = request.form.get('password') 
         passConfirm = request.form.get('password2')
+        if db_builder.add_account(userIn, passIn) == -2:
+            return render_template("create_account.html")
         if passIn != passConfirm:
             return render_template("create_account.html", error_msg="Passwords don't match")
-        if userIn == None:
-            return render_template("create_account.html")
         if db_builder.add_account(userIn, passIn) == -1:
             return render_template("create_account.html",
             error_msg= f"Account with username {userIn} already exists")

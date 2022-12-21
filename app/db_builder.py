@@ -38,10 +38,12 @@ def get_table_list(name):
 
 
 def add_account(username, password):
-    if not(exists(username, "User")):
+    if username == None or username == "" or password == None or password == "":
+        return -2
+    if not exists(username, "User"):
         default_stocks = "AAPL,MSFT,AMZN"
         data_query("INSERT INTO User VALUES (?, ?, ?)", (username, password, default_stocks))
-        #print(data_query(f'''SELECT * FROM User WHERE username = "{username}"''', fetchall = True))
+        return True
     else:
         return -1
 
