@@ -14,7 +14,7 @@ endpoint = "https://api.openweathermap.org/data/2.5/weather"
 
 def kelvin_to_fahrenheit(temp):
     F = 1.8*(temp-273) + 32
-    return F
+    return round(F, 1)
 
 
 def get_weather_data(lat=nylat, lon=nylon):
@@ -22,10 +22,10 @@ def get_weather_data(lat=nylat, lon=nylon):
     weather_info = json.loads(response.text)
     icon = weather_info['weather'][0]['icon']
     iconUrl = f"https://openweathermap.org/img/wn/{icon}@2x.png"
-    low = round(kelvin_to_fahrenheit(weather_info["main"]["temp_min"]), 1)
-    high = round(kelvin_to_fahrenheit(weather_info["main"]["temp_max"]), 1)
-    temp = round(kelvin_to_fahrenheit(weather_info["main"]["temp"]), 1)
-    feels_like = round(kelvin_to_fahrenheit(weather_info["main"]["feels_like"]), 1)
+    low = kelvin_to_fahrenheit(weather_info["main"]["temp_min"])
+    high = kelvin_to_fahrenheit(weather_info["main"]["temp_max"])
+    temp = kelvin_to_fahrenheit(weather_info["main"]["temp"])
+    feels_like = kelvin_to_fahrenheit(weather_info["main"]["feels_like"])
     return {'low': low,
             'high': high,
             'img_url': iconUrl,
