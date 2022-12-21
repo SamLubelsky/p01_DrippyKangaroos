@@ -157,6 +157,8 @@ def profile():
         # PROBLEM LINES:
         user_stocks = get_stocks(username)
         print(user_stocks)
+        user_stocks = [user_stock + ['True'] for user_stock in user_stocks]
+        print(f"user_stocks: {user_stocks}")
         return render_template("profile.html", username=session['username'], genres=genres, stocks=stocks, user_stocks=user_stocks)
     else:
         return render_template("error.html", msg="session could not be verifited")
