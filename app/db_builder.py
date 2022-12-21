@@ -171,6 +171,26 @@ def get_stocks(username):
     #print(f"processed output: {str(output[0])[2:-3].split(',')}")
     return(str(output[0])[2:-3].split(","))
 
+#def get_stocks(username):
+#    user_stocks = []
+#    db = sqlite3.connect("database.db")
+#    c = db.cursor()
+#    output = c.execute(f'''SELECT stocks FROM User WHERE username = "{username}"''').fetchall()
+#    #print(f"output: {output}")
+#    db.commit()
+#    db.close()
+#    output = str(output[0])[2:-3].split(";")
+#    #print(output)
+#    for stock in output:
+#        #print(stock) in stock name theres \\ where there's apostraphe
+#        info = stock.split(",")
+#        #print(info)
+#        if info[0].find(".") == -1: #stock ticker names w periods don't work
+#            stock = [info[0], stockapi.get_price(info[0]), info[2]]
+#            print(stock)
+#            user_stocks.append(stock)
+#    return(user_stocks)
+
 def add_stock(user, stock):
     user_stocks = ""
     for stck in get_stocks(user):
