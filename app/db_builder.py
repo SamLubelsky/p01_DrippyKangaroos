@@ -135,8 +135,11 @@ def add_from_genre(genre):
 def add_all_genres():
     print("Its a new day! I'm grabbing the newest headlines for today")
     genres = ["Business", "Entertainment", "General",
-              "Health", "Science", "Sports", "Technology"]
+              "Health", "Science", "Sports", "Technology",
+              "Weather", "Stocks"]
+    
     for i, genre in enumerate(genres):
+        print(f"Adding Articles for {genre}")
         print(f"{((i / len(genres)) * 100):.2f}% done")
         add_from_genre(genre)
 
@@ -176,7 +179,7 @@ def add_stock(user, stock):
     data_query("UPDATE User SET stocks = ? WHERE username = ?", (user_stocks, user))
 
 # print(f'db stocks: {get_stocks("soft")}')
-add_account("soft", "dev")
+#add_account("soft", "dev")
 #add_account("t", "te")
 #print(get_stocks("t"))
 

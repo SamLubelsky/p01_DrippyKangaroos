@@ -124,7 +124,14 @@ def topic():
         return render_template("topic.html", articles=articles, topic=topic, genres=genres, weather = weather_data, stocks=stocks)
     else:
         return render_template("error.html", msg="session could not be verifited")
-
+@app.route("/weather")
+def weather():
+    if(verify_session()):
+        articles = db_builder.get_from_genre("Weather")
+        print(articles)
+        return render_template("weather.html", articles=articles, topic="Weather", genres=genres)
+    else:
+        return render_template("error.html", msg="session could not be verifited")
 @app.route("/about")
 def about():
     if(verify_session()):
@@ -158,6 +165,7 @@ def verify_session():
         if db_builder.verify(session['username'], session['password']):
             return True
     return False
+
 
 def get_stocks(username):
     stocks = db_builder.get_stocks(username)
