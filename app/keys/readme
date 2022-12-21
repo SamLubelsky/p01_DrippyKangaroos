@@ -1,0 +1,5 @@
+All of our apis are standard REST apis that just require keys, no oauth shenanigans are going on.
+the three keys in this get data for the news, weather, and stocks:
+    -news is the main attraction for our website and the core of our site, the newsapi gets all the articles we serve on our site
+    -the stock api and weather api are more periphery, providing extra information about the day our users might want to know about.
+    -news is pulled once a day at the start of the day, both weather and stocks are grabbed by the api directly whenever they are needed.
