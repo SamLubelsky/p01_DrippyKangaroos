@@ -135,11 +135,8 @@ def add_from_genre(genre):
 def add_all_genres():
     print("Its a new day! I'm grabbing the newest headlines for today")
     genres = ["Business", "Entertainment", "General",
-              "Health", "Science", "Sports", "Technology",
-              "Weather", "Stocks"]
-    
+              "Health", "Science", "Sports", "Technology"]
     for i, genre in enumerate(genres):
-        print(f"Adding Articles for {genre}")
         print(f"{((i / len(genres)) * 100):.2f}% done")
         add_from_genre(genre)
 
@@ -165,11 +162,11 @@ def get_stocks(username):
     db = sqlite3.connect("database.db")
     c = db.cursor()
     output = c.execute(f'''SELECT stocks FROM User WHERE username = "{username}"''').fetchall()
-    #print(f"output: {output}")
+    # print(f"output: {output}")
     db.commit()
     db.close()
-    #print(f"processed output: {str(output[0])[2:-3].split(',')}")
-    return(str(output[0])[2:-3].split(","))
+    # print(f"processed output: {str(output[0])[2:-3].split(',')}")
+    return(str(output[0])[2:-3].split(";"))
 
 def add_stock(user, stock):
     user_stocks = ""
@@ -179,11 +176,9 @@ def add_stock(user, stock):
     data_query("UPDATE User SET stocks = ? WHERE username = ?", (user_stocks, user))
 
 # print(f'db stocks: {get_stocks("soft")}')
-#add_account("soft", "dev")
+add_account("soft", "dev")
 #add_account("t", "te")
 #print(get_stocks("t"))
 
-if __name__== "__main__":
-    reset_articles()
-    add_all_genres()
+
 

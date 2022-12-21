@@ -84,8 +84,8 @@ def home():
         # if 'stock_choice' in session:
         #     stocks = [[session['stock_choice'], stockapi.get_price(session['stock_choice'])]]
         # else:
-        #stocks = [["aapl", stockapi.get_price("aapl")], ["tsla", stockapi.get_price("tsla")], ["googl", stockapi.get_price("googl")], ["amzn", stockapi.get_price("amzn")], ["meta", stockapi.get_price("meta")]]
-        stocks = get_stocks(username)
+        stocks = [["aapl", stockapi.get_price("aapl")], ["tsla", stockapi.get_price("tsla")], ["googl", stockapi.get_price("googl")], ["amzn", stockapi.get_price("amzn")], ["meta", stockapi.get_price("meta")]]
+
         #print(f"stocks: {stocks}")
         #print(username)
         # stocks = db_builder.get_stocks(username)
@@ -118,20 +118,13 @@ def topic():
         # if 'stock_choice' in session:
         #     stocks = [[session['stock_choice'], stockapi.get_price(session['stock_choice'])]]
         # else:
-        #stocks = [["aapl", stockapi.get_price("aapl")], ["tsla", stockapi.get_price("tsla")], ["googl", stockapi.get_price("googl")], ["amzn", stockapi.get_price("amzn")], ["meta", stockapi.get_price("meta")]]
+        stocks = [["aapl", stockapi.get_price("aapl")], ["tsla", stockapi.get_price("tsla")], ["googl", stockapi.get_price("googl")], ["amzn", stockapi.get_price("amzn")], ["meta", stockapi.get_price("meta")]]
 
-        stocks = get_stocks(username)
+        #stocks = # db_builder.get_stocks(username)
         return render_template("topic.html", articles=articles, topic=topic, genres=genres, weather = weather_data, stocks=stocks)
     else:
         return render_template("error.html", msg="session could not be verifited")
-@app.route("/weather")
-def weather():
-    if(verify_session()):
-        articles = db_builder.get_from_genre("Weather")
-        print(articles)
-        return render_template("weather.html", articles=articles, topic="Weather", genres=genres)
-    else:
-        return render_template("error.html", msg="session could not be verifited")
+
 @app.route("/about")
 def about():
     if(verify_session()):
@@ -168,7 +161,6 @@ def verify_session():
         if db_builder.verify(session['username'], session['password']):
             return True
     return False
-
 
 def get_stocks(username):
     stocks = db_builder.get_stocks(username)

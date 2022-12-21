@@ -18,4 +18,4 @@ def request_stock(stock):
 def get_price(stock):
     stock = request_stock(stock)
     return stock["currentPrice"]["fmt"]
-#print(get_price("aapl"))
+print(get_price("aapl"))
