@@ -135,11 +135,8 @@ def add_from_genre(genre):
 def add_all_genres():
     print("Its a new day! I'm grabbing the newest headlines for today")
     genres = ["Business", "Entertainment", "General",
-              "Health", "Science", "Sports", "Technology",
-              "Weather", "Stocks"]
-    
+              "Health", "Science", "Sports", "Technology"]
     for i, genre in enumerate(genres):
-        print(f"Adding Articles for {genre}")
         print(f"{((i / len(genres)) * 100):.2f}% done")
         add_from_genre(genre)
 
@@ -165,31 +162,11 @@ def get_stocks(username):
     db = sqlite3.connect("database.db")
     c = db.cursor()
     output = c.execute(f'''SELECT stocks FROM User WHERE username = "{username}"''').fetchall()
-    #print(f"output: {output}")
+    # print(f"output: {output}")
     db.commit()
     db.close()
-    #print(f"processed output: {str(output[0])[2:-3].split(',')}")
-    return(str(output[0])[2:-3].split(","))
-
-#def get_stocks(username):
-#    user_stocks = []
-#    db = sqlite3.connect("database.db")
-#    c = db.cursor()
-#    output = c.execute(f'''SELECT stocks FROM User WHERE username = "{username}"''').fetchall()
-#    #print(f"output: {output}")
-#    db.commit()
-#    db.close()
-#    output = str(output[0])[2:-3].split(";")
-#    #print(output)
-#    for stock in output:
-#        #print(stock) in stock name theres \\ where there's apostraphe
-#        info = stock.split(",")
-#        #print(info)
-#        if info[0].find(".") == -1: #stock ticker names w periods don't work
-#            stock = [info[0], stockapi.get_price(info[0]), info[2]]
-#            print(stock)
-#            user_stocks.append(stock)
-#    return(user_stocks)
+    # print(f"processed output: {str(output[0])[2:-3].split(',')}")
+    return(str(output[0])[2:-3].split(";"))
 
 def add_stock(user, stock):
     user_stocks = ""
@@ -198,12 +175,46 @@ def add_stock(user, stock):
     user_stocks += stock
     data_query("UPDATE User SET stocks = ? WHERE username = ?", (user_stocks, user))
 
+def set_stocks(user, stocks):
+    user_stocks = get_stocks(user)
+    print(f"stocks input db: {stocks}")
+    # print("\nuser currently selected stocks: ")
+    # for user_stock in user_stocks:
+    #     if user_stock.split(",")[-1] == "True":
+    #         if not (user_stock.split(",")[0] in stocks):
+    #             stocks.append(user_stock.split(",")[0])
+
+    print(f"stocks merged db: {stocks}")
+    
+    print(f"\nuser_stocks: ['{user_stocks[0]}', '{user_stocks[1]}', '{user_stocks[2]}', '{user_stocks[3]}', '{user_stocks[4]}', '{user_stocks[5]}',..., '{user_stocks[-1]}'")
+    # print(user_stocks)
+    # chosen_index = 0 # index to track which of the stocks from the passed in args.stocks variable we are currently changing
+    user_index = 0
+    print(f"\n\nuser_stocks: {user_stocks}\n\n")
+    for stock in user_stocks:
+        stock = stock.split(",")
+        found = False
+        for selected_stock in stocks:
+            if stock[0] == selected_stock:
+                print(f"stock, selected_stock@index: {stock}, {selected_stock}")
+                stock[-1] = "True"
+                found = True
+        if not found:
+            stock[-1] = "False"
+            
+        stock = ",".join(stock)
+        user_stocks[user_index] = stock
+        user_index += 1
+    
+    # print(f"\n{user_stocks}")
+    # print(f"\nuser_stocks updated: ['{user_stocks[0]}', '{user_stocks[1]}', '{user_stocks[2]}', '{user_stocks[3]}', '{user_stocks[4]}', '{user_stocks[5]}',..., '{user_stocks[-1]}'")
+    user_stocks = ";".join(user_stocks)
+    data_query("UPDATE User SET stocks = ? WHERE username = ?", (user_stocks, user))
+
 # print(f'db stocks: {get_stocks("soft")}')
-#add_account("soft", "dev")
+add_account("soft", "dev")
 #add_account("t", "te")
 #print(get_stocks("t"))
 
-if __name__== "__main__":
-    reset_articles()
-    add_all_genres()
+
 

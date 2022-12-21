@@ -81,7 +81,7 @@
                                     <h6 class="card-subtitle mb-2 text-muted">{{weather['type']}}, {{weather['name']}}</h6>
                                     <p class="card-text card-summary">Temp: {{weather['temp']}}°F, Feels Like: {{weather['feels_like']}}°F
                                     <br>Low: {{weather['low']}}°F, High: {{weather['high']}}°F</p>
-                                    <a href="/weather" target="_blank" class="card-link btn btn-primary" role="button">Visit</a>
+                                    <a href="{{reference_link}}" target="_blank" class="card-link btn btn-primary" role="button">Visit</a>
                                 </div>
                             </div>
                             <div class="card stocks-card">
@@ -90,14 +90,16 @@
                                     <a href="/profile" style="color: grey; position: absolute; bottom: 0; right: 5px;"><p class="card-subtitle" style="font-size:13px">Edit</p></a>
                                     {% for stock in stocks %}
                                     <!-- <a href="{{reference_link}}" target="_blank" class="btn" role="button" style="outline: 0px;"> -->
-                                    <a href="{{stock[2]}}" class="btn" style="color: black">
+                                    {% if stock.split(",")[-1] == 'True' %}
+                                    <a href="#" class="btn" style="color: black">
                                         <div class="card" style="border-radius: .5rem; border: 1px solid lightgrey; min-height:2.5rem; width: auto; margin: .5rem; padding: .5rem; padding-bottom: .5rem; positon: absolute; left: -1rem;">
                                             <div class="" style="margin: 0rem; padding: 0rem;">
-                                                <h5 class="card-subtitle" style="margin: 0rem; padding: 0rem; font-size: 14px; color: green; padding-left: 0rem; display: inline-block; padding-right: .5rem;">${{stock[0].upper()}}</h5> 
-                                                <h5 class="card-subtitle" style="margin: 0rem; padding: 0rem; font-size: 14px; display: inline-block; padding-right: 0rem;">${{stock[1]}}</h5>
+                                                <h5 class="card-subtitle" style="margin: 0rem; padding: 0rem; font-size: 14px; color: green; padding-left: 0rem; display: inline-block; padding-right: .5rem;">${{stock.split(',')[0].upper()}}</h5> 
+                                                <h5 class="card-subtitle" style="margin: 0rem; padding: 0rem; font-size: 14px; display: inline-block; padding-right: 0rem;">${{stock.split(',')[-2]}}</h5>
                                             </div>
                                         </div>
                                     </a>
+                                    {% endif %}
                                     <!-- </a> -->
                                     {% endfor %}
                                 </div>

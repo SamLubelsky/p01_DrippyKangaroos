@@ -17,6 +17,8 @@ cur_date = str(date.today())
 if db_builder.new_day(cur_date):
     db_builder.update_date(cur_date)
 
+# db_builder.update_date(cur_date)
+
 @app.route('/')
 def index():
     if 'username' in session:
@@ -84,7 +86,7 @@ def home():
         # if 'stock_choice' in session:
         #     stocks = [[session['stock_choice'], stockapi.get_price(session['stock_choice'])]]
         # else:
-        #stocks = [["aapl", stockapi.get_price("aapl")], ["tsla", stockapi.get_price("tsla")], ["googl", stockapi.get_price("googl")], ["amzn", stockapi.get_price("amzn")], ["meta", stockapi.get_price("meta")]]
+        # stocks = [["aapl", stockapi.get_price("aapl")], ["tsla", stockapi.get_price("tsla")], ["googl", stockapi.get_price("googl")], ["amzn", stockapi.get_price("amzn")], ["meta", stockapi.get_price("meta")]]
         stocks = get_stocks(username)
         #print(f"stocks: {stocks}")
         #print(username)
@@ -118,20 +120,13 @@ def topic():
         # if 'stock_choice' in session:
         #     stocks = [[session['stock_choice'], stockapi.get_price(session['stock_choice'])]]
         # else:
-        #stocks = [["aapl", stockapi.get_price("aapl")], ["tsla", stockapi.get_price("tsla")], ["googl", stockapi.get_price("googl")], ["amzn", stockapi.get_price("amzn")], ["meta", stockapi.get_price("meta")]]
-
+        # stocks = [["aapl", stockapi.get_price("aapl")], ["tsla", stockapi.get_price("tsla")], ["googl", stockapi.get_price("googl")], ["amzn", stockapi.get_price("amzn")], ["meta", stockapi.get_price("meta")]]
         stocks = get_stocks(username)
+        #stocks = # db_builder.get_stocks(username)
         return render_template("topic.html", articles=articles, topic=topic, genres=genres, weather = weather_data, stocks=stocks)
     else:
         return render_template("error.html", msg="session could not be verifited")
-@app.route("/weather")
-def weather():
-    if(verify_session()):
-        articles = db_builder.get_from_genre("Weather")
-        print(articles)
-        return render_template("weather.html", articles=articles, topic="Weather", genres=genres)
-    else:
-        return render_template("error.html", msg="session could not be verifited")
+
 @app.route("/about")
 def about():
     if(verify_session()):
@@ -142,9 +137,11 @@ def about():
 @app.route("/profile", methods=['GET', 'POST'])
 def profile():
     if(verify_session()):
-        if request.method == "POST":
-            selected_user_stocks = request.form.get()
         username = session['username']
+        if request.method == "POST":
+            selected_user_stocks = request.form.getlist('True') + request.form.getlist('False')
+            print(selected_user_stocks)
+            db_builder.set_stocks(username, selected_user_stocks)
         # if request.method == 'POST':
         #     session['stock_choice']=(request.form.get('new_stock'))
         # if 'stock_choice' in session:
@@ -157,7 +154,7 @@ def profile():
         # print(user_stocks)
         user_stocks = [user_stock.split(",") for user_stock in user_stocks]
         user_stocks = [user_stock[:-1] + [True if user_stock[-1] == 'True' else False] for user_stock in user_stocks]
-        print(user_stocks)
+        # print(user_stocks)
         # print(f"user_stocks: {user_stocks}")
         return render_template("profile.html", username=session['username'], genres=genres, user_stocks=user_stocks)
     else:
@@ -169,15 +166,20 @@ def verify_session():
             return True
     return False
 
-
 def get_stocks(username):
     stocks = db_builder.get_stocks(username)
-    stocks_with_price = []
+    # print(f"stocks_gs: [{stocks[0]}, ..., {stocks[-1]}]")
+    index = 0
     for stock in stocks:
-        stocks_with_price.append([stock, stockapi.get_price(stock)])
-    
-    print(f"stocks w/ price: {stocks_with_price}")
-    return stocks_with_price
+        stock = stock.split(",")
+        if stock[-1] == 'True':
+            stock.insert(-1, stockapi.get_price(stock[0]))
+        stock = ",".join(stock)
+        stocks[index] = stock
+        index += 1
+    # print(f"\nstocks w/ price: ['{stocks[0]}', '{stocks[1]}', '{stocks[2]}', '{stocks[3]}', '{stocks[4]}', '{stocks[5]}',..., '{stocks[-1]}'")
+    # print(stocks)
+    return stocks
 
 if __name__ == "__main__":
     app.debug = True
