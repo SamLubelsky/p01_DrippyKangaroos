@@ -55,7 +55,7 @@
                     </div>
                 </nav>
 
-                <form action="/profile" method="POST">
+                <!-- <form action="/profile" method="POST">
                     <label for="new_stock">Select the stocks you'd like to track:</label>
                     <select name="new_stock" id="new_stock">
                         {% for stock in stocks %}
@@ -63,19 +63,31 @@
                         {% endfor %}
                     </select>
                     <button type="submit" name="save_stocks_button" class="btn btn-primary">Save</button>
-                </form>
+                </form> -->
 
                 <!-- <h2>Input the ticker of a stock you'd like to track</h2>
                 <form method -->
 
                 <h2>Currently tracking the following stocks:</h2>
-                <form action="/profile" method="POST" style="padding:1rem;">
-                    {% for user_stock in user_stocks %}
-                    <input type="checkbox" name="{{user_stock[0]}}" value="{{user_stock[0]}}" type="submit" class="btn" checked="{{user_stock[2]}}" id="{{user_stock[0]}}">{{user_stock[0]}}</input> <br>
-                    {% endfor %}
-                    <button type="submit" name="save_stocks_button" class="btn btn-primary">Save</button>
+                <div class="dropdown">
+                    <button href="#" class="dropdown-toggle btn btn-primary" data-bs-toggle="dropdown" style="margin: .5rem;">My Stocks</button>
+                    <form action="/profile">
+                        <div class="dropdown-menu">
+                            {% for user_stock in user_stocks %}
+                                <a class="dropdown-item" href="#">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" checked="{{user_stock[2]}}" id="{{user_stock[0]}}"/>
+                                        <label class="form-check-label" for="{{user_stock[0]}}">{{user_stock[0]}}</label>
+                                    </div>
+                                </a>
+                            {% endfor %}
+                        </div>
+                        <button type="submit" name="save_stocks_button" class="btn btn-primary">Save</button>
+                    </form>
                 </div>
+                
                 <br>
+
                 <h3>Username: {{username}}</h3>
                 <a href="/logout"><button class="btn btn-danger logout">Logout</button></a>
             </div>

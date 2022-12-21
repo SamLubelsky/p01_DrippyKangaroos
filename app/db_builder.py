@@ -1,9 +1,30 @@
 import sqlite3
 import newsapi
+import csv
 from datetime import date
 users = ("(username TEXT, password TEXT, stocks TEXT)")
 article = (
     "(title TEXT, url TEXT, imageUrl TEXT, summary TEXT, genre TEXT, source TEXT)")
+
+t_stocks = []
+
+def read_stocks(local_list):
+    with open('S&P_500_companies.csv', newline='') as csvfile:
+        spamreader = csv.reader(csvfile, quotechar='|')
+        for row in spamreader:
+            local_list.append(row + ['False'])
+    # print(local_list)
+    local_list=local_list[2:]
+    local_list[0][2] = 'True' # set random stocks to be tracked
+    local_list[50][2] = 'True'
+    local_list[20][2] = 'True'
+    local_list = [",".join(stock_list) for stock_list in local_list]
+    local_list = ';'.join(local_list)
+    return local_list
+
+t_stocks = read_stocks(t_stocks)
+print(t_stocks)
+
 
 def data_query(table, info=None, fetchall=False):
     db = sqlite3.connect("database.db")
@@ -153,7 +174,7 @@ def add_stock(user, stock):
         user_stocks += stck + ","
     user_stocks += stock
     data_query("UPDATE User SET stocks = ? WHERE username = ?", (user_stocks, user))
-    
+
 # print(f'db stocks: {get_stocks("soft")}')
 add_account("soft", "dev")
 #add_account("t", "te")

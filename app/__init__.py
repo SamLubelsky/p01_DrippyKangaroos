@@ -9,23 +9,9 @@ import weatherapi
 import newsapi
 import stockapi
 from datetime import date
-import csv
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
 genres = ["Business", "Entertainment", "General", "Health", "Science", "Sports", "Technology"]
-
-stocks = []
-
-def read_stocks(local_list):
-    with open('S&P_500_companies.csv', newline='') as csvfile:
-        spamreader = csv.reader(csvfile, quotechar='|')
-        for row in spamreader:
-            local_list.append(row)
-    # print(local_list)
-    local_list=local_list[2:]
-    return local_list
-
-stocks = read_stocks(stocks)
 
 cur_date = str(date.today())
 if db_builder.new_day(cur_date):
@@ -147,6 +133,8 @@ def about():
 @app.route("/profile", methods=['GET', 'POST'])
 def profile():
     if(verify_session()):
+        if request.method == "POST":
+            selected_user_stocks = request.form.get()
         username = session['username']
         # if request.method == 'POST':
         #     session['stock_choice']=(request.form.get('new_stock'))
@@ -156,10 +144,10 @@ def profile():
         # print(f"get_stocks: {get_stocks(username)}")
         # PROBLEM LINES:
         user_stocks = get_stocks(username)
-        print(user_stocks)
+        # print(user_stocks)
         user_stocks = [user_stock + ['True'] for user_stock in user_stocks]
-        print(f"user_stocks: {user_stocks}")
-        return render_template("profile.html", username=session['username'], genres=genres, stocks=stocks, user_stocks=user_stocks)
+        # print(f"user_stocks: {user_stocks}")
+        return render_template("profile.html", username=session['username'], genres=genres, user_stocks=user_stocks)
     else:
         return render_template("error.html", msg="session could not be verifited")
         
