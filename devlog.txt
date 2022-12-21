@@ -138,7 +138,13 @@ Worked on making the search bar functional and other various things.
 ==============================================================
 
 
-samuelL -- 2022-12-19 17:04
+samuelL -- 2022-12-20 17:04
 --------------------------------------------------------------
 Fixed many bugs and worked on getting stocks to display correctly on the homepage and explore to work properly.  Had to mess with the dbs and apis a little to get everything working properly.
+==============================================================
+
+
+samuelL -- 2022-12-21 17:26
+--------------------------------------------------------------
+Worked on making sure stocks and api worked and some minor changes to the frontend.
 ==============================================================
