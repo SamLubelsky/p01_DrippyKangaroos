@@ -23,7 +23,7 @@ def read_stocks(local_list):
     return local_list
 
 t_stocks = read_stocks(t_stocks)
-print(t_stocks)
+#print(t_stocks)
 
 
 def data_query(table, info=None, fetchall=False):
@@ -162,10 +162,10 @@ def get_stocks(username):
     db = sqlite3.connect("database.db")
     c = db.cursor()
     output = c.execute(f'''SELECT stocks FROM User WHERE username = "{username}"''').fetchall()
-    print(f"output: {output}")
+    #print(f"output: {output}")
     db.commit()
     db.close()
-    print(f"processed output: {str(output[0])[2:-3].split(',')}")
+    #print(f"processed output: {str(output[0])[2:-3].split(',')}")
     return(str(output[0])[2:-3].split(","))
 
 def add_stock(user, stock):
@@ -180,5 +180,7 @@ add_account("soft", "dev")
 #add_account("t", "te")
 #print(get_stocks("t"))
 
-
+if __name__== "__main__":
+    reset_articles()
+    add_all_genres()
 
