@@ -147,7 +147,7 @@ def get_stocks(username):
     print(f"processed output: {str(output[0])[2:-3].split(',')}")
     return(str(output[0])[2:-3].split(","))
 
-def add_stock(user, stock)
+def add_stock(user, stock):
     user_stocks = ""
     for stck in get_stocks(user):
         user_stocks += stck + ","
