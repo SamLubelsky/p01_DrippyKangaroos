@@ -22,14 +22,16 @@ def get_weather_data(lat=nylat, lon=nylon):
     weather_info = json.loads(response.text)
     icon = weather_info['weather'][0]['icon']
     iconUrl = f"https://openweathermap.org/img/wn/{icon}@2x.png"
-    temp_min = round(kelvin_to_fahrenheit(weather_info["main"]["temp_min"]), 1)
-    temp_max = round(kelvin_to_fahrenheit(weather_info["main"]["temp_max"]), 1)
-    return {'low': temp_min,
-            'high': temp_max,
+    low = round(kelvin_to_fahrenheit(weather_info["main"]["temp_min"]), 1)
+    high = round(kelvin_to_fahrenheit(weather_info["main"]["temp_max"]), 1)
+    temp = round(kelvin_to_fahrenheit(weather_info["main"]["temp"]), 1)
+    feels_like = round(kelvin_to_fahrenheit(weather_info["main"]["feels_like"]), 1)
+    return {'low': low,
+            'high': high,
             'img_url': iconUrl,
             'type': weather_info["weather"][0]["main"],
-            'temp': weather_info["main"]["temp"],
-            'feels_like': weather_info["main"]["feels_like"],
+            'temp': temp,
+            'feels_like': feels_like,
             'name': weather_info["name"]}
 # print(getweatherdata())
 # response = requests.get(endpoint,
