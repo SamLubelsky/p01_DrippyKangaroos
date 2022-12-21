@@ -84,8 +84,8 @@ def home():
         # if 'stock_choice' in session:
         #     stocks = [[session['stock_choice'], stockapi.get_price(session['stock_choice'])]]
         # else:
-        stocks = [["aapl", stockapi.get_price("aapl")], ["tsla", stockapi.get_price("tsla")], ["googl", stockapi.get_price("googl")], ["amzn", stockapi.get_price("amzn")], ["meta", stockapi.get_price("meta")]]
-
+        # stocks = [["aapl", stockapi.get_price("aapl")], ["tsla", stockapi.get_price("tsla")], ["googl", stockapi.get_price("googl")], ["amzn", stockapi.get_price("amzn")], ["meta", stockapi.get_price("meta")]]
+        stocks = get_stocks(username)
         #print(f"stocks: {stocks}")
         #print(username)
         # stocks = db_builder.get_stocks(username)
@@ -145,7 +145,7 @@ def profile():
         #     db_builder.add_stock(username, session['stock_choice'])
         # print(f"get_stocks: {get_stocks(username)}")
         # PROBLEM LINES:
-        user_stocks = db_builder.get_stocks(username)
+        user_stocks = get_stocks(username)
         # print(user_stocks)
         # print(user_stocks)
         user_stocks = [user_stock.split(",") for user_stock in user_stocks]
@@ -164,10 +164,18 @@ def verify_session():
 
 def get_stocks(username):
     stocks = db_builder.get_stocks(username)
-    stocks_with_price = []
+    # print(f"stocks_gs: [{stocks[0]}, ..., {stocks[-1]}]")
+    index = 0
     for stock in stocks:
-        stocks_with_price.append([stock, stockapi.get_price(stock)])
-    return stocks_with_price
+        stock = stock.split(",")
+        if stock[-1] == 'True':
+            stock.insert(-1, stockapi.get_price(stock[0]))
+        stock = ",".join(stock)
+        stocks[index] = stock
+        index += 1
+    print(f"\nstocks w/ price: ['{stocks[0]}', '{stocks[1]}', '{stocks[2]}', '{stocks[3]}', '{stocks[4]}', '{stocks[5]}',..., '{stocks[-1]}'")
+    # print(stocks)
+    return stocks
 
 if __name__ == "__main__":
     app.debug = True
