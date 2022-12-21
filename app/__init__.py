@@ -145,9 +145,12 @@ def profile():
         #     db_builder.add_stock(username, session['stock_choice'])
         # print(f"get_stocks: {get_stocks(username)}")
         # PROBLEM LINES:
-        user_stocks = get_stocks(username)
+        user_stocks = db_builder.get_stocks(username)
         # print(user_stocks)
-        user_stocks = [user_stock + ['True'] for user_stock in user_stocks]
+        # print(user_stocks)
+        user_stocks = [user_stock.split(",") for user_stock in user_stocks]
+        user_stocks = [user_stock[:-1] + [True if user_stock[-1] == 'True' else False] for user_stock in user_stocks]
+        print(user_stocks)
         # print(f"user_stocks: {user_stocks}")
         return render_template("profile.html", username=session['username'], genres=genres, user_stocks=user_stocks)
     else:

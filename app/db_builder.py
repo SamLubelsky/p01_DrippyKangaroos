@@ -16,14 +16,14 @@ def read_stocks(local_list):
     # print(local_list)
     local_list=local_list[2:]
     local_list[0][2] = 'True' # set random stocks to be tracked
-    local_list[50][2] = 'True'
-    local_list[20][2] = 'True'
+    local_list[2][2] = 'True'
+    local_list[5][2] = 'True'
     local_list = [",".join(stock_list) for stock_list in local_list]
     local_list = ';'.join(local_list)
     return local_list
 
 t_stocks = read_stocks(t_stocks)
-print(t_stocks)
+#print(t_stocks)
 
 
 def data_query(table, info=None, fetchall=False):
@@ -62,8 +62,8 @@ def add_account(username, password):
     if username == None or username == "" or password == None or password == "":
         return -2
     if not exists(username, "User"):
-        default_stocks = "AAPL,MSFT,AMZN"
-        data_query("INSERT INTO User VALUES (?, ?, ?)", (username, password, default_stocks))
+        #default_stocks = ",".join([stock[0] for stock in ",".split((";".split(t_stocks)))])#"AAPL,MSFT,AMZN"
+        data_query("INSERT INTO User VALUES (?, ?, ?)", (username, password, t_stocks))   #default_stocks))
         return True
     else:
         return -1
@@ -162,11 +162,11 @@ def get_stocks(username):
     db = sqlite3.connect("database.db")
     c = db.cursor()
     output = c.execute(f'''SELECT stocks FROM User WHERE username = "{username}"''').fetchall()
-    print(f"output: {output}")
+    # print(f"output: {output}")
     db.commit()
     db.close()
-    print(f"processed output: {str(output[0])[2:-3].split(',')}")
-    return(str(output[0])[2:-3].split(","))
+    # print(f"processed output: {str(output[0])[2:-3].split(',')}")
+    return(str(output[0])[2:-3].split(";"))
 
 def add_stock(user, stock):
     user_stocks = ""

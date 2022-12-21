@@ -72,11 +72,16 @@
                 <div class="dropdown">
                     <button href="#" class="dropdown-toggle btn btn-primary" data-bs-toggle="dropdown" style="margin: .5rem;">My Stocks</button>
                     <form action="/profile">
-                        <div class="dropdown-menu">
+                        <div class="dropdown-menu" style="max-height: 20rem; overflow-y: auto;">
                             {% for user_stock in user_stocks %}
                                 <a class="dropdown-item" href="#">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" checked="{{user_stock[2]}}" id="{{user_stock[0]}}"/>
+                                        {% if user_stock[2] %}
+                                        <input class="form-check-input" type="checkbox" value="" checked id="{{user_stock[0]}}"/>
+                                        {% else %}
+                                        <input class="form-check-input" type="checkbox" value="" id="{{user_stock[0]}}"/>
+                                        {% endif %}
+                                        
                                         <label class="form-check-label" for="{{user_stock[0]}}">{{user_stock[0]}}</label>
                                     </div>
                                 </a>
