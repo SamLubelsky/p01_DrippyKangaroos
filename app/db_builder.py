@@ -1,9 +1,29 @@
 import sqlite3
 import newsapi
+import csv
 from datetime import date
 users = ("(username TEXT, password TEXT, stocks TEXT)")
 article = (
     "(title TEXT, url TEXT, imageUrl TEXT, summary TEXT, genre TEXT, source TEXT)")
+
+t_stocks = []
+
+def read_stocks(local_list):
+    with open('S&P_500_companies.csv', newline='') as csvfile:
+        spamreader = csv.reader(csvfile, quotechar='|')
+        for row in spamreader:
+            local_list.append(row + ['False'])
+    # print(local_list)
+    local_list=local_list[2:]
+    local_list[0][2] = 'True' # set random stocks to be tracked
+    local_list[50][2] = 'True'
+    local_list[20][2] = 'True'
+    local_list = [",".join(stock_list) for stock_list in local_list]
+    local_list = ';'.join(local_list)
+    return local_list
+
+t_stocks = read_stocks(t_stocks)
+print(t_stocks)
 
 
 def data_query(table, info=None, fetchall=False):
@@ -39,10 +59,12 @@ def get_table_list(name):
 
 
 def add_account(username, password):
-    if not(exists(username, "User")):
+    if username == None or username == "" or password == None or password == "":
+        return -2
+    if not exists(username, "User"):
         default_stocks = "AAPL,MSFT,AMZN"
         data_query("INSERT INTO User VALUES (?, ?, ?)", (username, password, default_stocks))
-        #print(data_query(f'''SELECT * FROM User WHERE username = "{username}"''', fetchall = True))
+        return True
     else:
         return -1
 
@@ -137,19 +159,26 @@ def get_from_genre(genre):
     return resp
 
 def get_stocks(username):
-    stocks = data_query(f'''SELECT stocks FROM User WHERE username = "{username}"''', fetchall = True)
-    if len(stocks) > 0:
-        return stocks[0][0].split(",")
-    else:
-        return []
+    db = sqlite3.connect("database.db")
+    c = db.cursor()
+    output = c.execute(f'''SELECT stocks FROM User WHERE username = "{username}"''').fetchall()
+    print(f"output: {output}")
+    db.commit()
+    db.close()
+    print(f"processed output: {str(output[0])[2:-3].split(',')}")
+    return(str(output[0])[2:-3].split(","))
 
 def add_stock(user, stock):
-    user_stocks = f"{get_stocks(user)},{stock}"
+    user_stocks = ""
+    for stck in get_stocks(user):
+        user_stocks += stck + ","
+    user_stocks += stock
     data_query("UPDATE User SET stocks = ? WHERE username = ?", (user_stocks, user))
-    
-add_account("soft", "dev")
 
-if __name__ == "__main__":
-    reset_articles()
-    add_all_genres()
-    # print(get_from_genre("Science"))
+# print(f'db stocks: {get_stocks("soft")}')
+add_account("soft", "dev")
+#add_account("t", "te")
+#print(get_stocks("t"))
+
+
+

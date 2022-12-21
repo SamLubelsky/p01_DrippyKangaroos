@@ -15,82 +15,88 @@
     <body>
         <div class="page-container">
             <div class="content-wrap">
-                <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-                    <div class="container-fluid">
-                        <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
-                            <ul class="navbar-nav me-auto">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/home">Home</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link active" href="/explore">Explore</a>
-                                </li>
-                                <li class="nav-item dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Topics</a>
-                                    <form action="/topic">
-                                        <div class="dropdown-menu">
-                                            {% for genre in genres%}
-                                            <input name="topic" value="{{genre}}" type="submit" class="dropdown-item" id="{{genre.lower()}}">
-                                            {% endfor %}
-                                        </div>
-                                    </form>
-                                </li>
-                            </ul>
+                <div class="row">
+                    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+                        <div class="container-fluid">
+                            <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+                                <ul class="navbar-nav me-auto">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/home">Home</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="/explore">Explore</a>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Topics</a>
+                                        <form action="/topic">
+                                            <div class="dropdown-menu">
+                                                {% for genre in genres%}
+                                                <input name="topic" value="{{genre}}" type="submit" class="dropdown-item" id="{{genre.lower()}}">
+                                                {% endfor %}
+                                            </div>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="mx-auto order-0" style="padding-left:1.5rem; padding-right:1.5rem;">
+                                <a class="navbar-brand mx-auto" href="/home">Newsify</a>
+                                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".dual-collapse2">
+                                    <span class="navbar-toggler-icon"></span>
+                                </button>
+                            </div>
+                            <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+                                <ul class="navbar-nav ms-auto">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/about">About</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/profile">Profile</a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                        <div class="mx-auto order-0" style="padding-left:1.5rem; padding-right:1.5rem;">
-                            <a class="navbar-brand mx-auto" href="/home">Newsify</a>
-                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".dual-collapse2">
-                                <span class="navbar-toggler-icon"></span>
-                            </button>
+                    </nav>
+
+                    <form action="/explore  " method="GET" >
+                        <div class="input-group searchbar">
+                            <input type="search" name="query" class="form-control form-control text-bg" style="border-radius:.5rem;" placeholder="Search..." aria-label="Search" name="search_query">
+
+                            <div class="input-group-append" style="margin-right:1rem; margin-left:.5rem;">
+                                <button type="submit" class="btn btn-primary search-button" style="color:white;">Search...</button>
+                            <!-- <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button> -->
+
+                            <!--<div class="dropdown-menu" style="padding:.5rem;">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                                <div role="separator" class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Separated link</a>
+                            </div> -->
+                            </div>
                         </div>
-                        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
-                            <ul class="navbar-nav ms-auto">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/about">About</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/profile">Profile</a>
-                                </li>
-                            </ul>
+                    </form>
+
+                    <div class="home-row">
+                        {% for article in articles %}
+                        <div class="card">
+                            <div class="card-body card-scroll">
+                                {% if article['urlToImage'] != "None" %}
+                                <img src={{article['urlToImage']}} class="card-img">
+                                {% endif %}
+                                <h5 class="card-title">{{article['title']}}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">{{article['source']['name']}}</h6>   
+                                <a href="{{article['url']}}" target="_blank" class="card-link btn btn-primary" role="button">Visit</a>
+                            </div>
                         </div>
+                        {% endfor %}
                     </div>
-                </nav>
-
-                <form action="/explore  " method="GET" >
-                    <div class="input-group searchbar">
-                        <input type="search" name="query" class="form-control form-control text-bg" style="border-radius:.5rem;" placeholder="Search..." aria-label="Search" name="search_query">
-
-                        <div class="input-group-append" style="margin-right:1rem; margin-left:.5rem;">
-                            <button type="submit" class="btn btn-primary search-button" style="color:white;">Search...</button>
-                        <!-- <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="sr-only">Toggle Dropdown</span>
-                        </button> -->
-
-                        <!--<div class="dropdown-menu" style="padding:.5rem;">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                            <div role="separator" class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Separated link</a>
-                        </div> -->
-                        </div>
-                    </div>
-                </form>
-            </div>
-            {% for article in articles %}
-            <div class="card">
-                <div class="card-body card-scroll">
-                    {% if article['urlToImage'] != "None" %}
-                    <img src={{article['urlToImage']}} class="card-img">
-                    {% endif %}
-                    <h5 class="card-title">{{article['title']}}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">{{article['source']['name']}}</h6>   
-                    <a href="{{article['url']}}" target="_blank" class="card-link btn btn-primary" role="button">Visit</a>
                 </div>
             </div>
-            {% endfor %}
+
             <footer>
-                <div class="d-flex flex-fill flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
+                <div class="footer-div d-flex flex-fill flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
                 <p>© 2022 Drippy Kangaroos, Inc.</p>
                 </div>
             </footer>

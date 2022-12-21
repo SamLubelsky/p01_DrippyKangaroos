@@ -9,23 +9,9 @@ import weatherapi
 import newsapi
 import stockapi
 from datetime import date
-import csv
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
 genres = ["Business", "Entertainment", "General", "Health", "Science", "Sports", "Technology"]
-
-stocks = []
-
-def read_stocks(local_list):
-    with open('S&P_500_companies.csv', newline='') as csvfile:
-        spamreader = csv.reader(csvfile, quotechar='|')
-        for row in spamreader:
-            local_list.append(row)
-    # print(local_list)
-    local_list=local_list[2:]
-    return local_list
-
-stocks = read_stocks(stocks)
 
 cur_date = str(date.today())
 if db_builder.new_day(cur_date):
@@ -59,14 +45,20 @@ def create_account():
         userIn = request.form.get('username')
         passIn = request.form.get('password') 
         passConfirm = request.form.get('password2')
-        if passIn != passConfirm:
-            return render_template("create_account.html", error_msg="Passwords don't match")
-        if userIn == None:
+
+        if request.form.get('create_acc_button2') is None:
             return render_template("create_account.html")
-        if db_builder.add_account(userIn, passIn) == -1:
-            return render_template("create_account.html",
-            error_msg= f"Account with username {userIn} already exists")
-        return render_template("sign_up_success.html")
+        else:
+            result = db_builder.add_account(userIn, passIn)
+            if result != True:
+                if result == -2:
+                    return render_template("create_account.html", error_msg="Username/Password cannot be empty")
+                elif db_builder.add_account(userIn, passIn) == -1:
+                    return render_template("create_account.html",
+                        error_msg= f"Account with username {userIn} already exists")
+            if passIn != passConfirm:
+                return render_template("create_account.html", error_msg="Passwords don't match")
+            return render_template("sign_up_success.html")
     return redirect(url_for('index'))
     
 @app.route('/logout')
@@ -89,17 +81,17 @@ def home():
         #     print("stock: " + stock)
         #     stocks_with_price.append([stock, stockapi.get_price(stock)])
         # return render_template("home.html", articles=articles, genres=genres, weather=weather_data, stocks=stocks_with_price)
-        if 'stock_choice' in session:
-            stocks = [[session['stock_choice'], stockapi.get_price(session['stock_choice'])]]
-        else:
-            stocks = [["aapl", stockapi.get_price("aapl")], ["tsla", stockapi.get_price("tsla")], ["googl", stockapi.get_price("googl")], ["amzn", stockapi.get_price("amzn")], ["meta", stockapi.get_price("meta")]]
+        # if 'stock_choice' in session:
+        #     stocks = [[session['stock_choice'], stockapi.get_price(session['stock_choice'])]]
+        # else:
+        stocks = [["aapl", stockapi.get_price("aapl")], ["tsla", stockapi.get_price("tsla")], ["googl", stockapi.get_price("googl")], ["amzn", stockapi.get_price("amzn")], ["meta", stockapi.get_price("meta")]]
 
-        print(f"stocks: {stocks}")
+        #print(f"stocks: {stocks}")
         #print(username)
         # stocks = db_builder.get_stocks(username)
         # for stock in stocks:
         #     stock.append(stockapi.get_price(stock[0]))
-        return render_template("home.html", articles=articles, genres=genres, weather=weather_data, stocks=stocks)#stocks=stocks)
+        return render_template("home.html", articles=articles, genres=genres, weather=weather_data, stocks=stocks)
     else:
         return render_template("error.html", msg="session could not be verifited")
 
@@ -108,7 +100,7 @@ def explore():
     query = request.args.get("query")
     articles = []
     if query is not None:
-        articles = newsapi.request_articles(query, 5)
+        articles = newsapi.request_articles(query, 15)
     if(verify_session()):
         return render_template("explore.html", genres=genres, articles = articles)
     else:
@@ -121,8 +113,13 @@ def topic():
         weather_data = weatherapi.get_weather_data()
         topic = request.args.get("topic")
         articles = db_builder.get_from_genre(topic)
-        stocks = get_stocks(username)
-        return render_template("topic.html", articles=articles, topic=topic, genres=genres, weather = weather_data, stocks = stocks)
+        # if 'stock_choice' in session:
+        #     stocks = [[session['stock_choice'], stockapi.get_price(session['stock_choice'])]]
+        # else:
+        stocks = [["aapl", stockapi.get_price("aapl")], ["tsla", stockapi.get_price("tsla")], ["googl", stockapi.get_price("googl")], ["amzn", stockapi.get_price("amzn")], ["meta", stockapi.get_price("meta")]]
+
+        #stocks = # db_builder.get_stocks(username)
+        return render_template("topic.html", articles=articles, topic=topic, genres=genres, weather = weather_data, stocks=stocks)
     else:
         return render_template("error.html", msg="session could not be verifited")
 
@@ -136,11 +133,21 @@ def about():
 @app.route("/profile", methods=['GET', 'POST'])
 def profile():
     if(verify_session()):
+        if request.method == "POST":
+            selected_user_stocks = request.form.get()
         username = session['username']
-        if request.method == 'POST':
-            session['stock_choice'] = request.form.get('stocks')
-        # db_builder.add_stock(username, stock_choice)
-        return render_template("profile.html", username=session['username'], genres=genres, stocks=stocks)
+        # if request.method == 'POST':
+        #     session['stock_choice']=(request.form.get('new_stock'))
+        # if 'stock_choice' in session:
+        #     print(session['stock_choice'])
+        #     db_builder.add_stock(username, session['stock_choice'])
+        # print(f"get_stocks: {get_stocks(username)}")
+        # PROBLEM LINES:
+        user_stocks = get_stocks(username)
+        # print(user_stocks)
+        user_stocks = [user_stock + ['True'] for user_stock in user_stocks]
+        # print(f"user_stocks: {user_stocks}")
+        return render_template("profile.html", username=session['username'], genres=genres, user_stocks=user_stocks)
     else:
         return render_template("error.html", msg="session could not be verifited")
         
@@ -149,12 +156,14 @@ def verify_session():
         if db_builder.verify(session['username'], session['password']):
             return True
     return False
+
 def get_stocks(username):
     stocks = db_builder.get_stocks(username)
     stocks_with_price = []
     for stock in stocks:
         stocks_with_price.append([stock, stockapi.get_price(stock)])
     return stocks_with_price
+
 if __name__ == "__main__":
     app.debug = True
     app.run()
