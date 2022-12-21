@@ -147,7 +147,11 @@ def profile():
         if 'stock_choice' in session:
             print(session['stock_choice'])
             db_builder.add_stock(username, session['stock_choice'])
-        print(f"get_stocks: {db_builder.get_stocks(username)}")
+        # print(f"get_stocks: {get_stocks(username)}")
+        # PROBLEM LINES:
+        # user_stocks = get_stocks(username)
+        # print(user_stocks)
+        return render_template("profile.html", username=session['username'], genres=genres, stocks=stocks)
         return render_template("profile.html", username=session['username'], genres=genres, stocks=stocks, user_stocks=db_builder.get_stocks(username))
     else:
         return render_template("error.html", msg="session could not be verifited")
@@ -157,12 +161,14 @@ def verify_session():
         if db_builder.verify(session['username'], session['password']):
             return True
     return False
+
 def get_stocks(username):
     stocks = db_builder.get_stocks(username)
     stocks_with_price = []
     for stock in stocks:
         stocks_with_price.append([stock, stockapi.get_price(stock)])
     return stocks_with_price
+
 if __name__ == "__main__":
     app.debug = True
     app.run()

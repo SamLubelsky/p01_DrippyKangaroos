@@ -139,15 +139,17 @@ def get_stocks(username):
     db = sqlite3.connect("database.db")
     c = db.cursor()
     output = c.execute(f'''SELECT stocks FROM User WHERE username = "{username}"''').fetchall()
+    print(f"output: {output}")
     db.commit()
     db.close()
+    print(f"processed output: {str(output[0])[2:-3].split(',')}")
     return(str(output[0])[2:-3].split(","))
 
 def add_stock(user, stock):
     user_stocks = f"{get_stocks(user)},{stock}"
     data_query("UPDATE User SET stocks = ? WHERE username = ?", (user_stocks, user))
     
-
+# print(f'db stocks: {get_stocks("soft")}')
 add_account("soft", "dev")
 #add_account("t", "te")
 #print(get_stocks("t"))
