@@ -1,4 +1,4 @@
-# MultiSource News by DrippyKangaroos
+# Newsify by DrippyKangaroos
 # by Samuel Lubelsky, Anson Wong, Daniel Yentin, and Kosta Dubovskiy
 # Description
 Our project is a news site which aggregates other news site to make a news feed which covers topics from multiple angles.  We will use news data, weather data, and stock data pulling from at least three apis. 
