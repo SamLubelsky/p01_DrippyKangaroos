@@ -179,10 +179,10 @@ def set_stocks(user, stocks):
     user_stocks = get_stocks(user)
     print(f"stocks input db: {stocks}")
     # print("\nuser currently selected stocks: ")
-    for user_stock in user_stocks:
-        if user_stock.split(",")[-1] == "True":
-            if not (user_stock.split(",")[0] in stocks):
-                stocks.append(user_stock.split(",")[0])
+    # for user_stock in user_stocks:
+    #     if user_stock.split(",")[-1] == "True":
+    #         if not (user_stock.split(",")[0] in stocks):
+    #             stocks.append(user_stock.split(",")[0])
 
     print(f"stocks merged db: {stocks}")
     
@@ -193,10 +193,14 @@ def set_stocks(user, stocks):
     print(f"\n\nuser_stocks: {user_stocks}\n\n")
     for stock in user_stocks:
         stock = stock.split(",")
+        found = False
         for selected_stock in stocks:
             if stock[0] == selected_stock:
                 print(f"stock, selected_stock@index: {stock}, {selected_stock}")
                 stock[-1] = "True"
+                found = True
+        if not found:
+            stock[-1] = "False"
             
         stock = ",".join(stock)
         user_stocks[user_index] = stock

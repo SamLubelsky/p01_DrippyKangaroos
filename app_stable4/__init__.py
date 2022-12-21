@@ -17,6 +17,8 @@ cur_date = str(date.today())
 if db_builder.new_day(cur_date):
     db_builder.update_date(cur_date)
 
+# db_builder.update_date(cur_date)
+
 @app.route('/')
 def index():
     if 'username' in session:
