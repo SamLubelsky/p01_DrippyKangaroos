@@ -8,7 +8,6 @@ Our news site is unique in that we will generate a list of current events and th
 # Launch Codes
 * clone repository with ```git clone git@github.com:SamLubelsky/p01_DrippyKangaroos.git```
 * cd into the repository with ```cd p01_DrippyKangaroos/app```
-* ```cd app``` to enter working directory
 * Run  ```pip install -r requirements.txt ``` to install necessary packages
 * Run ```python __init__.py``` to launch the program
 * Access the localbost by typing localhost:5000 into your web browser to access the webpage
