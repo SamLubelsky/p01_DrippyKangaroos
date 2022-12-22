@@ -109,6 +109,11 @@ samD -- 2022-12-14 10:10
 Worked a lot on the frontend and backend.  Articles now display properly and are stored properly in the backend.
 ==============================================================
 
+ansonW -- 2022-12-14 22:22
+--------------------------------------------------------------
+Fixed storing articles in database since tables were changed & added check for date so it only runs once/day
+==============================================================
+
 samD -- 2022-12-15 15:14
 --------------------------------------------------------------
 Pretty much did a little bit of everything, a lot of tightening up things and fixing some bugs/deficiencies in the codebase.  Did some work on the frontend and both making things look nicer and able to use more data from the backend, worked on weatherapi, and changed some of the flask routing and databse storage
@@ -120,6 +125,11 @@ Fixed up the frontend more, the login/create_account/success pages are uniformly
 Tweaked some things in the python/flask backend with authentication of username and password on the /create_account page, just ironing out small logic bugs.
 Added a couple of things to db_builder and __init__ to ensure an account with an empty string as a password or username is not permitted, made it so the error is properly displayed in the html.
 Implemented search bar, set up the functionality in __init__ to use the input from the search bar for the API fetching. The search input is stored in search_query via a POST request.
+==============================================================
+
+ansonW -- 2022-12-16 10:10
+--------------------------------------------------------------
+Fixed error in weather, added login errors, started doing weather by state
 ==============================================================
 
 danielY -- 2022-12-18 9:30 
@@ -137,6 +147,15 @@ samuelL -- 2022-12-19 12:58
 Worked on making the search bar functional and other various things.
 ==============================================================
 
+ansonW -- 2022-12-19 23:12
+--------------------------------------------------------------
+Added stocks to table & returns in list format in __init__, error because username not fetched correctly 
+==============================================================
+
+ansonW -- 2022-12-20 8:23
+--------------------------------------------------------------
+Fixed minor error in getting username & stocks
+==============================================================
 
 samuelL -- 2022-12-20 17:04
 --------------------------------------------------------------
