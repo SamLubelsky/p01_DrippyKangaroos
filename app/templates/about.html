@@ -11,7 +11,56 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
         <link rel="stylesheet" href="/static/css/stylesheet.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-        
+        <style>
+            /* Dropdown Button */
+            .dropbtn {
+                background-color: white;
+                margin:.1rem;
+                color: black;
+                padding: 16px;
+                font-size: 16px;
+                border: none;
+            }
+
+            /* The container <div> - needed to position the dropdown content */
+            .dropdown {
+                position: relative;
+                display: inline-block;
+            }
+
+            /* Dropdown Content (Hidden by Default) */
+            .dropdown-content {
+                display: none;
+                position: absolute;
+                background-color: #f1f1f1;
+                min-width: 160px;
+                box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+                z-index: 1;
+            }
+
+            /* Links inside the dropdown */
+            .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            }
+
+            /* Change color of dropdown links on hover */
+            .dropdown-content a:hover {background-color: #ddd;}
+
+            /* Show the dropdown menu on hover */
+            .dropdown:hover .dropdown-content {display: block;}
+
+            /* Change the background color of the dropdown button when the dropdown content is shown */
+            .dropdown:hover .dropbtn {background-color: white;}
+
+            .center {
+            margin: auto;
+            width: 50%;
+            text-align: center;
+            }
+        </style>
     </head>
     <body>
         <div class="page-container">
@@ -56,24 +105,65 @@
                         </div>
                     </div>
                 </nav>
+                <div class="row" style="padding:0rem; margin:0rem">
+                    <div class="row center" style="padding:1.5vw;">
+                        <h1>Pillars of Newsify!</h1>
+                    </div>
+                    <div class="row" style="padding:.5vw;">
+                        <div class="col" style="padding:.5vw;">
+                            <div class="card center" style="width: 100%; height:auto;">
+                                <div class="dropdown" style="height:auto; background-color:none;">
+                                    <button class="dropbtn"><h1>Fast and Easy</h1></button>
+                                    <div class="dropdown-content">
+                                        <a href=""><p> Newsify innovative news search features allow you to spend less time finding the news and more time reading it.  You're only ever one tap away from
+                                            finding the most important current events of whatever genre you choose, or no genre if you browse our homepage.
+                                        </p></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col" style="padding:.5vw; width:33vw;">
+                            <div class="card center" style="width: 100%; height:auto;">
+                                <div class="dropdown" style="height:auto; background-color:none;">
+                                    <button class="dropbtn"><h1>Reimagining How News is Served</h1></button>
+                                    <div class="dropdown-content">
+                                        <a href=""><p>
+                                            Newsify pulls articles from sites of all political leanings to provide readers with an unbiased viewpoint.  This is a key part of our goal to help readers from both sides of 
+                                            the aisle to better understand each other.  We don't personalize articles based off user preferences because we believe in forcing our readers to leave their bubbles
+                                            and get news from more than one source.
+                                        </p></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col" style="padding:.5vw;">
+                            <div class="card center" style="width: 100%; height:auto;">
+                                <div class="dropdown" style="height:auto; background-color:none;">
+                                    <button class="dropbtn center"><h1>Total Privacy</h1></button>
+                                    <div class="dropdown-content">
+                                        <a href=""><p>
+                                            The only data newsify tracks about you is what you give it.  We believe in the importance of privacy and that is why the only information we track about you is 
+                                            your stock preferences which you can choose to input.  Cookies are used, but are exclusively for the purpose of keeping you logged in.
+                                        </p></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 10rem;">
+                        <div class="" style="width: 25rem; height:auto; padding:1rem;">
+                                <h1>Sincerely</h1>
+                                <em>-The team at Newsify by the Drippy Kangaroos</em>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <br>
+                        <div style="position:relative; bottom:1rem; top:1rem;">
+                            <img src="/static/flag.jpg" style="border-radius:.5rem; width:25rem;" width="500">
+                        </div>
+                    </div>
+                </div>
             </div>
-                <h1> Fast and Easy</h1>
-                <p> Newsify innovative news search features allow you to spend less time finding the news and more time reading it.  You're only ever one tap away from
-                    finding the most important current events of whatever genre you choose, or no genre if you browse our homepage.
-                <p>
-                <h1> Reimagining How News is Served </h1>
-                    Newsify pulls articles from sites of all political leanings to provide readers with an unbiased viewpoint.  This is a key part of our goal to help readers from both sides of 
-                    the aisle to better understand each other.  We don't personalize articles based off user preferences because we believe in forcing our readers to leave their bubbles
-                    and get news from more than one source.
-                </p>
-                <h1> Total Privacy</h1>
-                <p>
-                    The only data newsify tracks about you is what you give it.  We believe in the importance of privacy and that is why the only information we track about you is 
-                    your stock preferences which you can choose to input.  Cookies are used, but are exclusively for the purpose of keeping you logged in.
-                </p>
-                    Newsify is made by Drippy Kangaroos
-                </p>
-                <img src = "/static/flag.jpg" width="500">
             <footer>
                 <div class="footer-div d-flex flex-fill flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
                 <p>© 2022 Drippy Kangaroos, Inc.</p>
